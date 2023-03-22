@@ -1,26 +1,15 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import { useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
+import styles from "../style/inputArea.module.css";
 
 const InputArea = ({ sendMessage, input, setInput }: any) => {
   return (
-    <Grid
-      sx={{
-        position: "relative",
-        width: "100%",
-        display: "flex",
-      }}
-    >
+    <Grid className={styles.wrapper}>
       <TextField
         multiline
         value={input}
         rows={2}
-        sx={{
-          backgroundColor: "#fff",
-          borderRadius: "10px",
-          flex: 1,
-          paddingRight: "5rem",
-        }}
+        className={styles.input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -33,12 +22,7 @@ const InputArea = ({ sendMessage, input, setInput }: any) => {
         variant="contained"
         color="secondary"
         onClick={() => sendMessage(input)}
-        sx={{
-          width: "5rem",
-          position: "absolute",
-          right: "0",
-          height: "100%",
-        }}
+        className={styles.button}
       >
         <SendIcon />
       </Button>

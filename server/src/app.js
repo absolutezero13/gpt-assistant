@@ -1,8 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const { Configuration, OpenAIApi } = require("openai");
-const bodyParser = require("body-parser");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const AppProperties = require("./model/appProperties");
 
 const app = express();
 
@@ -20,6 +21,31 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
+
+mongoose.connect(process.env.DATABASE, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+app.post("/tokens", async (req, res) => {
+  try {
+    await AppProperties.findOneAndUpdate(
+      {
+        key: "tokens-used",
+      },
+      {
+        $inc: {
+          tokens: req.body.tokens,
+        },
+      }
+    );
+
+    res.status(200).send("Tokens updated");
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send(error.message);
+  }
+});
 
 app.post("/", async (req, res) => {
   console.log("req.body", req.body);

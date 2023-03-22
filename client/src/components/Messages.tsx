@@ -21,7 +21,7 @@ const Messages = ({ messages, pending }: any) => {
       mt={3}
       mb={3}
       sx={{
-        height: "70vh",
+        flex: 0.95,
         overflowY: "scroll",
         paddingRight: "1rem",
         paddingBottom: "1rem",
@@ -36,8 +36,8 @@ const Messages = ({ messages, pending }: any) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              alignItems: item.role === "user" ? "flex-end" : "flex-start",
               width: "100%",
+              alignItems: item.role === "user" ? "flex-end" : "flex-start",
             }}
           >
             <div
