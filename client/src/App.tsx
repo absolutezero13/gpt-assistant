@@ -8,10 +8,11 @@ import { Message } from "./api/types";
 import { PromptOptions } from "./components/PromptOptions";
 import { SideBar } from "./components/SideBar";
 import { Grid } from "@mui/material";
+import { messages as mockMessages } from "./data/mocks";
 
 function App() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(mockMessages);
   const [selectedPrompt, setSelectedPrompt] = useState<string>(
     Object.keys(prompts)[0]
   );
@@ -57,6 +58,7 @@ function App() {
           paddingRight: "2rem",
           display: "flex",
           flexDirection: "column",
+          maxHeight: "100dvh",
         }}
       >
         <Messages messages={messages} pending={pending} />

@@ -2,6 +2,9 @@ import { CircularProgress, Grid, Typography } from "@mui/material";
 import { theme } from "../style/theme";
 import styles from "../style/Messages.module.css";
 import { useEffect, useRef } from "react";
+import PersonIcon from "@mui/icons-material/Person";
+import { Message } from "../api/types";
+import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 
 const Messages = ({ messages, pending }: any) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,7 +32,7 @@ const Messages = ({ messages, pending }: any) => {
         marginBottom: 0,
       }}
     >
-      {messages.map((item) => {
+      {messages.map((item: Message) => {
         return (
           <div
             key={item.content + item.role}
@@ -63,7 +66,8 @@ const Messages = ({ messages, pending }: any) => {
                 }}
                 variant="body1"
               >
-                {item.role}: {item.content}
+                {item.role === "user" ? <PersonIcon /> : <PsychologyAltIcon />}{" "}
+                {item.content}
               </Typography>
             </div>
           </div>
