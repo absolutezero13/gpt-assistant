@@ -32,6 +32,7 @@ const Messages = ({ messages, pending }: any) => {
       {messages.map((item) => {
         return (
           <div
+            key={item.content + item.role}
             style={{
               display: "flex",
               flexDirection: "column",
@@ -40,7 +41,6 @@ const Messages = ({ messages, pending }: any) => {
             }}
           >
             <div
-              key={item.content + item.role}
               style={{
                 color: "#fff",
                 display: "flex",
