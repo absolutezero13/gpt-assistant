@@ -1,18 +1,25 @@
-import { Button, TextField } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import SendIcon from "@mui/icons-material/Send";
 
 const InputArea = ({ sendMessage, input, setInput }: any) => {
   return (
-    <>
+    <Grid
+      sx={{
+        position: "relative",
+        width: "100%",
+        display: "flex",
+      }}
+    >
       <TextField
-        id="outlined-multiline-static"
-        label=""
         multiline
-        rows={4}
         value={input}
+        rows={2}
         sx={{
           backgroundColor: "#fff",
           borderRadius: "10px",
+          flex: 1,
+          paddingRight: "5rem",
         }}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
@@ -23,15 +30,19 @@ const InputArea = ({ sendMessage, input, setInput }: any) => {
         placeholder="Enter your message"
       />
       <Button
-        variant="outlined"
+        variant="contained"
+        color="secondary"
         onClick={() => sendMessage(input)}
         sx={{
-          marginTop: "1rem",
+          width: "5rem",
+          position: "absolute",
+          right: "0",
+          height: "100%",
         }}
       >
-        Send Message
+        <SendIcon />
       </Button>
-    </>
+    </Grid>
   );
 };
 

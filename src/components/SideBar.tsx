@@ -20,7 +20,7 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }) => {
   return (
     <Grid
       sx={{
-        width: 300,
+        width: "15rem",
         flexShrink: 0,
         backgroundColor: theme.palette.background.paper,
         height: "100dvh",
