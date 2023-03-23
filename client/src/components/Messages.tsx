@@ -1,7 +1,8 @@
-import { CircularProgress, Grid, Typography } from "@mui/material";
-import { theme } from "../style/theme";
-import styles from "../style/Messages.module.css";
 import { useEffect, useRef } from "react";
+import { CircularProgress, Grid, Typography } from "@mui/material";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { theme } from "../style/theme";
+import styles from "../style/messages.module.css";
 import PersonIcon from "@mui/icons-material/Person";
 import { Message } from "../api/types";
 import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
@@ -19,42 +20,23 @@ const Messages = ({ messages, pending }: any) => {
   }, [messages]);
 
   return (
-    <Grid
-      ref={ref}
-      mt={3}
-      mb={3}
-      sx={{
-        flex: 0.95,
-        overflowY: "scroll",
-        paddingRight: "1rem",
-        paddingBottom: "1rem",
-        marginTop: 0,
-        marginBottom: 0,
-      }}
-    >
+    <Grid ref={ref} mt={3} mb={3} className={styles.container}>
       {messages.map((item: Message) => {
         return (
           <div
             key={item.content + item.role}
+            className={styles.messageItem}
             style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
               alignItems: item.role === "user" ? "flex-end" : "flex-start",
             }}
           >
             <div
+              className={styles.message}
               style={{
-                color: "#fff",
-                display: "flex",
                 backgroundColor:
                   item.role === "user"
                     ? "#fff"
                     : theme.palette.background.paper,
-                padding: "10px",
-                borderRadius: "10px",
-                marginTop: "2rem",
-                width: "50%",
               }}
             >
               <Typography
@@ -74,14 +56,7 @@ const Messages = ({ messages, pending }: any) => {
         );
       })}
       {pending && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "1rem",
-          }}
-        >
+        <div className={styles.spinner}>
           <CircularProgress color="secondary" />
         </div>
       )}

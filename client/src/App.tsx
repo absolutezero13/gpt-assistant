@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createChatCompletion } from "./api/gpt";
 import "./App.css";
-import { prompts } from "./data/prompts";
+import { Prompt, prompts } from "./data/prompts";
 import { Messages } from "./components/Messages";
 import { InputArea } from "./components/InputArea";
 import { Message } from "./api/types";
@@ -13,9 +13,7 @@ import { messages as mockMessages } from "./data/mocks";
 function App() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>(mockMessages);
-  const [selectedPrompt, setSelectedPrompt] = useState<string>(
-    Object.keys(prompts)[0]
-  );
+  const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts.default);
   const [pending, setPending] = useState(false);
 
   const sendMessage = async (text: string) => {
@@ -30,7 +28,7 @@ function App() {
       },
     ]);
 
-    const prompt = `${prompts[selectedPrompt]}\n${text}`;
+    const prompt = `${selectedPrompt.text}\n${text}`;
 
     const res = await createChatCompletion(prompt);
 
@@ -66,6 +64,7 @@ function App() {
           sendMessage={sendMessage}
           input={input}
           setInput={setInput}
+          pending={pending}
         />
       </Grid>
     </div>

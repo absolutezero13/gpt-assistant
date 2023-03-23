@@ -16,7 +16,9 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
       {Object.keys(prompts).map((key) => {
         return (
           <Button
-            variant={selectedPrompt === key ? "contained" : "outlined"}
+            variant={
+              selectedPrompt.id === prompts[key].id ? "contained" : "outlined"
+            }
             key={key}
             sx={{
               display: "flex",
@@ -26,7 +28,7 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
               width: "10rem",
               marginTop: "1rem",
             }}
-            onClick={() => setSelectedPrompt(key)}
+            onClick={() => setSelectedPrompt(prompts[key])}
           >
             <Typography variant="body1">{key}</Typography>
           </Button>
