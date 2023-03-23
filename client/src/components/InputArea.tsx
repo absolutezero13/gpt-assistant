@@ -14,6 +14,7 @@ const InputArea = ({ sendMessage, input, setInput, pending }: any) => {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
+            e.preventDefault();
             sendMessage(input);
           }
         }}

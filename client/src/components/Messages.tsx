@@ -1,13 +1,26 @@
 import { useEffect, useRef } from "react";
-import { CircularProgress, Grid, Typography } from "@mui/material";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { CircularProgress, Grid, Typography } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 import { theme } from "../style/theme";
 import styles from "../style/messages.module.css";
-import PersonIcon from "@mui/icons-material/Person";
 import { Message } from "../api/types";
-import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 
-const Messages = ({ messages, pending }: any) => {
+const dynamicStyles = {
+  user: {
+    backgroundColor: "#fff",
+    alignItems: "flex-end",
+    color: theme.palette.background.default,
+  },
+  assistant: {
+    backgroundColor: theme.palette.background.paper,
+    alignItems: "flex-start",
+    color: "#fff",
+  },
+};
+
+const Messages = ({ messages, pending, selectedPrompt }: any) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,24 +40,18 @@ const Messages = ({ messages, pending }: any) => {
             key={item.content + item.role}
             className={styles.messageItem}
             style={{
-              alignItems: item.role === "user" ? "flex-end" : "flex-start",
+              alignItems: dynamicStyles[item.role].alignItems,
             }}
           >
             <div
               className={styles.message}
               style={{
-                backgroundColor:
-                  item.role === "user"
-                    ? "#fff"
-                    : theme.palette.background.paper,
+                backgroundColor: dynamicStyles[item.role].backgroundColor,
               }}
             >
               <Typography
                 sx={{
-                  color:
-                    item.role === "assistant"
-                      ? "#fff"
-                      : theme.palette.background.default,
+                  color: dynamicStyles[item.role].color,
                 }}
                 variant="body1"
               >

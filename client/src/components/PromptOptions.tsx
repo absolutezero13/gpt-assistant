@@ -1,15 +1,10 @@
 import { Button, Grid, List, Typography } from "@mui/material";
 import { prompts } from "../data/prompts";
+import styles from "../style/promptOptions.module.css";
 
 const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
   return (
-    <List
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <List className={styles.list}>
       <Typography color="#fff" variant="h6">
         Available Assistants
       </Typography>
@@ -20,13 +15,10 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
               selectedPrompt.id === prompts[key].id ? "contained" : "outlined"
             }
             key={key}
+            className={styles.button}
             sx={{
-              display: "flex",
-              alignItems: "center",
-              padding: "10px",
-              cursor: "pointer",
-              width: "10rem",
               marginTop: "1rem",
+              padding: "1rem",
             }}
             onClick={() => setSelectedPrompt(prompts[key])}
           >

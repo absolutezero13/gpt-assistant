@@ -19,11 +19,11 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }) => {
   const [open, setOpen] = useState(true);
   return (
     <Grid
+      bgcolor={theme.palette.background.paper}
       sx={{
         width: "15rem",
-        flexShrink: 0,
-        backgroundColor: theme.palette.background.paper,
         height: "100dvh",
+        backgroundColor: theme.palette.background.paper,
       }}
     >
       <PromptOptions

@@ -12,34 +12,43 @@ import { messages as mockMessages } from "./data/mocks";
 
 function App() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>(mockMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts.default);
   const [pending, setPending] = useState(false);
 
   const sendMessage = async (text: string) => {
     if (!text) return;
-    setPending(true);
-    setInput("");
-    setMessages((prev) => [
-      ...prev,
-      {
-        role: "user",
-        content: text,
-      },
-    ]);
+    try {
+      setPending(true);
+      setInput("");
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "user",
+          content: text,
+        },
+      ]);
+      let conversationHistory = "";
+      if (selectedPrompt.shouldRememberConversation) {
+        conversationHistory = messages
+          .map((message) => message.content)
+          .join("\n");
+      }
 
-    const prompt = `${selectedPrompt.text}\n${text}`;
+      const prompt = `${selectedPrompt.text}${conversationHistory}\n${text}`;
 
-    const res = await createChatCompletion(prompt);
+      const res = await createChatCompletion(prompt);
+      console.log("res", res);
 
-    setMessages((prev) => [
-      ...(prev as Message[]),
-      res.choices[0].message as Message,
-    ]);
-
-    setPending(false);
-
-    console.log("res", res);
+      setMessages((prev) => [
+        ...(prev as Message[]),
+        res.choices[0].message as Message,
+      ]);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -59,7 +68,11 @@ function App() {
           maxHeight: "100dvh",
         }}
       >
-        <Messages messages={messages} pending={pending} />
+        <Messages
+          messages={messages}
+          pending={pending}
+          selectedPrompt={selectedPrompt}
+        />
         <InputArea
           sendMessage={sendMessage}
           input={input}
