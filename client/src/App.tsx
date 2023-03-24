@@ -30,6 +30,12 @@ function App() {
   const sendMessage = async (text: string) => {
     if (!text) return;
     try {
+      if (tokens <= 0) {
+        alert(
+          "You have run out of tokens. Please purchase more tokens to continue using the app."
+        );
+        return;
+      }
       setPending(true);
       setInput("");
 
@@ -67,7 +73,7 @@ function App() {
 
       const res = await createChatCompletion(prompt);
       console.log("createChatCompletion res", res);
-      if (res.status === 402) {
+      if (res?.status === 402) {
         alert(
           "You have run out of tokens. Please purchase more tokens to continue using the app."
         );

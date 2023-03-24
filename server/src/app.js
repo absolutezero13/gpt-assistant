@@ -27,7 +27,21 @@ mongoose.connect(process.env.DATABASE, {
   useUnifiedTopology: true,
 });
 
+app.get("/tokens", async (req, res) => {
+  try {
+    const response = await AppProperties.findOne({
+      key: "tokens-used",
+    });
+
+    res.status(200).send(response);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send(error.message);
+  }
+});
+
 app.post("/tokens", async (req, res) => {
+  console.log("some tone used", req.body.tokensUsed);
   try {
     await AppProperties.findOneAndUpdate(
       {
@@ -35,12 +49,16 @@ app.post("/tokens", async (req, res) => {
       },
       {
         $inc: {
-          tokens: req.body.tokens,
+          tokensUsed: req.body.tokensUsed,
         },
       }
     );
 
-    res.status(200).send("Tokens updated");
+    const response = await AppProperties.findOne({
+      key: "tokens-used",
+    });
+
+    res.status(200).send(response);
   } catch (error) {
     console.log(error.message);
     res.status(500).send(error.message);
@@ -50,6 +68,17 @@ app.post("/tokens", async (req, res) => {
 app.post("/", async (req, res) => {
   console.log("req.body", req.body);
   try {
+    const tokenResponse = await AppProperties.findOne({
+      key: "tokens-used",
+    });
+    if (tokenResponse.tokenLimit - tokenResponse.tokensUsed <= 0) {
+      res.status(402).send({
+        status: 402,
+        message: "You have used all your tokens for the day",
+      });
+      return;
+    }
+
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [

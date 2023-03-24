@@ -4,7 +4,10 @@ const appPropertiesSchema = new mongoose.Schema({
   key: {
     type: String,
   },
-  tokens: {
+  tokensUsed: {
+    type: Number,
+  },
+  tokenLimit: {
     type: Number,
   },
 });
