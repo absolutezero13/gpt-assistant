@@ -21,6 +21,6 @@ body {
 @media screen and (max-width: 480px) {
   .App {
     flex-direction: column;
-    flex: 1;
+    height: 100dvh;
   }
 }

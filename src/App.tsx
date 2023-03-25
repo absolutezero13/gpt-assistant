@@ -12,6 +12,7 @@ import { messages as mockMessages } from "./data/mocks";
 import styles from "./style/general.module.css";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { useWindowSize } from "./hooks/useWindowSize";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
@@ -27,6 +28,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 function App() {
+  const { width } = useWindowSize();
   const [input, setInput] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messages, setMessages] = useState<Message[]>(selectedPrompt.messages);
@@ -114,7 +116,7 @@ function App() {
           paddingRight: "2rem",
           display: "flex",
           flexDirection: "column",
-          maxHeight: "100dvh",
+          maxHeight: width <= 480 ? "80dvh" : "100vh",
           flex: 1,
         }}
       >
