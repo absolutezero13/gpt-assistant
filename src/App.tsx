@@ -115,6 +115,7 @@ function App() {
           display: "flex",
           flexDirection: "column",
           maxHeight: "100dvh",
+          flex: 1,
         }}
       >
         <Messages

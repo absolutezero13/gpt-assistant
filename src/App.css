@@ -15,3 +15,12 @@ body {
   display: flex;
   flex-direction: row;
 }
+
+/* 480px, 768px, 1024px, and 1280px */
+
+@media screen and (max-width: 480px) {
+  .App {
+    flex-direction: column;
+    flex: 1;
+  }
+}

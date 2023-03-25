@@ -6,6 +6,7 @@ import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 import { theme } from "../style/theme";
 import styles from "../style/messages.module.css";
 import { Message } from "../api/types";
+import Loader from "./Loader";
 
 const dynamicStyles = {
   user: {
@@ -64,7 +65,7 @@ const Messages = ({ messages, pending, selectedPrompt }: any) => {
       })}
       {pending && (
         <div className={styles.spinner}>
-          <CircularProgress color="secondary" />
+          <Loader />
         </div>
       )}
     </Grid>

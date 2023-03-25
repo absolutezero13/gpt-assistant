@@ -43,7 +43,7 @@ export const prompts: Prompt[] = [
     messages: [],
   },
   {
-    key: "careerMentor",
+    key: "Career Mentor",
     text: "You will be a career mentor. You will give advice to user about their career. User might ask you about their career, what they should do, what they should study, you will interpret accordingly. User might ask about job applying questions,  You will give them advice accordingly.",
     icon: "",
     id: 4,

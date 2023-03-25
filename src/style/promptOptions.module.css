@@ -11,3 +11,21 @@
   cursor: pointer;
   width: 10rem;
 }
+
+@media screen and (max-width: 480px) {
+  .list {
+    flex-direction: row;
+    overflow-x: scroll;
+  }
+
+  .list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .button {
+    width: 5rem;
+    height: 4rem;
+    padding: 5px;
+    /* margin-right: 1rem; */
+  }
+}
