@@ -8,21 +8,19 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
       <Typography color="#fff" variant="h6">
         Available Assistants
       </Typography>
-      {Object.keys(prompts).map((key) => {
+      {prompts.map((prompt) => {
         return (
           <Button
-            variant={
-              selectedPrompt.id === prompts[key].id ? "contained" : "outlined"
-            }
-            key={key}
+            variant={selectedPrompt.id === prompt.id ? "contained" : "outlined"}
+            key={prompt.id.toString()}
             className={styles.button}
             sx={{
               marginTop: "1rem",
               padding: "1rem",
             }}
-            onClick={() => setSelectedPrompt(prompts[key])}
+            onClick={() => setSelectedPrompt(prompt)}
           >
-            <Typography variant="body1">{key}</Typography>
+            <Typography variant="body1">{prompt.key}</Typography>
           </Button>
         );
       })}

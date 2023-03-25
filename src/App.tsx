@@ -9,13 +9,26 @@ import { PromptOptions } from "./components/PromptOptions";
 import { SideBar } from "./components/SideBar";
 import { Grid } from "@mui/material";
 import { messages as mockMessages } from "./data/mocks";
+import styles from "./style/general.module.css";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
+  authDomain: "gpt-assistant-19b00.firebaseapp.com",
+  projectId: "gpt-assistant-19b00",
+  storageBucket: "gpt-assistant-19b00.appspot.com",
+  messagingSenderId: "295539962308",
+  appId: "1:295539962308:web:687bfd659df2ea8a42b491",
+  measurementId: "G-EC4RWL1DT9",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 function App() {
   const [input, setInput] = useState("");
-  const [allPrompts, setAllPrompts] = useState<{ [key: string]: Prompt }>(
-    prompts
-  );
-  const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts.default);
+  const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messages, setMessages] = useState<Message[]>(selectedPrompt.messages);
   const [pending, setPending] = useState(false);
   const [tokens, setTokens] = useState<number | null>(null);
@@ -30,7 +43,7 @@ function App() {
   const sendMessage = async (text: string) => {
     if (!text) return;
     try {
-      if (tokens <= 0) {
+      if (tokens! <= 0) {
         alert(
           "You have run out of tokens. Please purchase more tokens to continue using the app."
         );
@@ -38,21 +51,6 @@ function App() {
       }
       setPending(true);
       setInput("");
-
-      setAllPrompts((prev) => ({
-        ...prev,
-        [selectedPrompt.key]: {
-          ...selectedPrompt,
-          messages: [
-            ...selectedPrompt.messages,
-            {
-              role: "user",
-              content: text,
-            },
-          ],
-        },
-      }));
-
       setMessages((prev) => [
         ...prev,
         {
@@ -88,17 +86,6 @@ function App() {
         ...(prev as Message[]),
         res.choices[0].message as Message,
       ]);
-
-      setAllPrompts((prev) => ({
-        ...prev,
-        [selectedPrompt.key]: {
-          ...selectedPrompt,
-          messages: [
-            ...selectedPrompt.messages,
-            res.choices[0].message as Message,
-          ],
-        },
-      }));
     } catch (error: any) {
       console.log("error", error);
       if (error.response.status === 402) {
@@ -112,8 +99,6 @@ function App() {
       setPending(false);
     }
   };
-
-  console.log("allPrompts", allPrompts);
 
   return (
     <div className="App">
@@ -145,18 +130,9 @@ function App() {
         />
       </Grid>
       {tokens && (
-        <div
-          style={{
-            position: "absolute",
-            top: "0",
-            right: "0",
-            backgroundColor: "#fff",
-            padding: "0.5rem",
-            borderRadius: "0.5rem",
-          }}
-        >
+        <Grid className={styles.tokens}>
           <p>TOKENS LEFT : {tokens} </p>
-        </div>
+        </Grid>
       )}
     </div>
   );

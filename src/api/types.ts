@@ -24,3 +24,9 @@ export interface Message {
   role: "user" | "assistant";
   content: string;
 }
+
+export interface TokenResponse {
+  tokensUsed: number;
+  key: string;
+  tokenLimit: number;
+}

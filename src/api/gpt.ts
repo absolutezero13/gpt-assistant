@@ -1,9 +1,9 @@
 import { ENDPOINT } from "./contants";
-import { ChatCompletion } from "./types";
+import { ChatCompletion, TokenResponse } from "./types";
 
 export const createChatCompletion = async (
   content: string
-): Promise<ChatCompletion> => {
+): Promise<ChatCompletion | any> => {
   console.log("content", content);
 
   try {
@@ -23,7 +23,7 @@ export const createChatCompletion = async (
   }
 };
 
-export const getTokens = async (): Promise<string> => {
+export const getTokens = async (): Promise<TokenResponse> => {
   try {
     const res = await fetch(`${ENDPOINT}tokens`, {
       method: "GET",
@@ -38,7 +38,9 @@ export const getTokens = async (): Promise<string> => {
   }
 };
 
-export const updateTokens = async (tokensUsed: number): Promise<string> => {
+export const updateTokens = async (
+  tokensUsed: number
+): Promise<TokenResponse> => {
   try {
     const res = await fetch(`${ENDPOINT}tokens`, {
       method: "POST",

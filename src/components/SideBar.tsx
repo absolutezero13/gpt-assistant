@@ -15,7 +15,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { PromptOptions } from "./PromptOptions";
 
-const SideBar = ({ selectedPrompt, setSelectedPrompt }) => {
+const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
   const [open, setOpen] = useState(true);
   return (
     <Grid
