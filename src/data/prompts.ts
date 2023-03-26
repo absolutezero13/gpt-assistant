@@ -60,5 +60,4 @@ export const prompts: Prompt[] = [
   },
 ];
 
-export const rememberPrompt =
-  "You will see a conversation down below, answer the last message from the user but also keep in mind the whole conversation.";
+export const rememberPrompt = "";
