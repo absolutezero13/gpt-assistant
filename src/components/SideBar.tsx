@@ -10,7 +10,6 @@ const StyledGrid = styled(Grid)(({ isSmall }: any) => ({
   width: isSmall ? undefined : "15rem",
   height: isSmall ? "10rem" : "100dvh",
   backgroundColor: theme.palette.background.paper,
-  padding: isSmall ? "1rem" : undefined,
 }));
 
 const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
