@@ -16,6 +16,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { PromptOptions } from "./PromptOptions";
 import classes from "../style/sideBar.module.css";
 import { useWindowSize } from "../hooks/useWindowSize";
+import { breakPoints } from "../style/breakPoints";
 
 const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
   const { width } = useWindowSize();
@@ -24,9 +25,10 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
     <Grid
       bgcolor={theme.palette.background.paper}
       sx={{
-        width: width <= 480 ? undefined : "15rem",
-        height: width <= 480 ? "20dvh" : "100dvh",
+        width: width <= breakPoints.sm ? undefined : "15rem",
+        height: width <= breakPoints.sm ? "15dvh" : "100dvh",
         backgroundColor: theme.palette.background.paper,
+        padding: width <= breakPoints.sm ? "1rem" : undefined,
       }}
     >
       <PromptOptions

@@ -5,14 +5,13 @@
 }
 
 .button {
-  display: flex;
-  align-items: center;
   padding: 10px;
   cursor: pointer;
   width: 10rem;
+  justify-content: flex-start;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .list {
     flex-direction: row;
     overflow-x: scroll;

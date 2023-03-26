@@ -13,6 +13,7 @@ import styles from "./style/general.module.css";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { useWindowSize } from "./hooks/useWindowSize";
+import { breakPoints } from "./style/breakPoints";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
@@ -116,7 +117,7 @@ function App() {
           paddingRight: "2rem",
           display: "flex",
           flexDirection: "column",
-          maxHeight: width <= 480 ? "80dvh" : "100vh",
+          maxHeight: width <= breakPoints.sm ? "85dvh" : "100vh",
           flex: 1,
         }}
       >

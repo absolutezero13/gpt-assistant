@@ -1,10 +1,14 @@
 import { Button, Grid, List, Typography } from "@mui/material";
 import { prompts } from "../data/prompts";
 import { useWindowSize } from "../hooks/useWindowSize";
+import { breakPoints } from "../style/breakPoints";
 import styles from "../style/promptOptions.module.css";
 
 const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
   const { width } = useWindowSize();
+
+  const isSmall = width <= breakPoints.sm;
+
   return (
     <>
       <Typography color="#fff" variant="h6">
@@ -12,6 +16,8 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
       </Typography>
       <List className={styles.list}>
         {prompts.map((prompt) => {
+          const Icon = prompt.icon;
+
           return (
             <Button
               variant={
@@ -22,12 +28,20 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
               sx={{
                 marginTop: "1rem",
                 padding: "1rem",
-                marginRight: width <= 480 ? "1rem" : 0,
-                minWidth: width <= 480 ? "8rem" : "auto",
+                height: isSmall ? "3rem" : "5rem",
+                marginRight: isSmall ? "1rem" : 0,
+                minWidth: isSmall ? "10rem" : "12rem",
               }}
               onClick={() => setSelectedPrompt(prompt)}
             >
-              <Typography variant="subtitle1">{prompt.key}</Typography>
+              <Icon
+                sx={{
+                  marginRight: "1rem",
+                }}
+              />
+              <Typography variant={isSmall ? "subtitle2" : "subtitle1"}>
+                {prompt.key}
+              </Typography>
             </Button>
           );
         })}
