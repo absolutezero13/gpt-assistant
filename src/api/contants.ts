@@ -1,1 +1,2 @@
-export const ENDPOINT = "http://localhost:8080/";
+export const ENDPOINT =
+  "https://us-central1-gpt-assistant-19b00.cloudfunctions.net/app/";
