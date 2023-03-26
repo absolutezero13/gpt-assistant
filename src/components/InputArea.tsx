@@ -27,7 +27,7 @@ const InputArea = ({
 }: any) => {
   const { width } = useWindowSize();
 
-  const [psyhicalFeatures, setPsyhicalFeatures] = useState<any>(
+  const [psyhicalFeatures, setPsyhicalFeatures] = useState(
     initialPsychicalFeatures
   );
 
