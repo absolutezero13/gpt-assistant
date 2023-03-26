@@ -55,6 +55,7 @@ function App() {
       }
       setPending(true);
       setInput("");
+
       setMessages((prev) => [
         ...prev,
         {
@@ -128,6 +129,7 @@ function App() {
         />
         <InputArea
           sendMessage={sendMessage}
+          selectedPrompt={selectedPrompt}
           input={input}
           setInput={setInput}
           pending={pending}

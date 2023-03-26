@@ -27,6 +27,14 @@ export const prompts: Prompt[] = [
     messages: [],
   },
   {
+    key: "Stylist",
+    text: "I want you to be a stylist, you are gonna give style and clothing advices based on these pyhsical features;",
+    icon: Man3Icon,
+    id: 6,
+    shouldRememberConversation: false,
+    messages: [],
+  },
+  {
     key: "doctor",
     text: "You will be a doctor, and you will evaluate the symptoms of user. User might says about their symptoms, how they feel, what their health histry, you will interpret accordingly. You will give them advice accordingly.",
     icon: MonitorHeartIcon,
