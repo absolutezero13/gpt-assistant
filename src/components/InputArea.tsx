@@ -7,6 +7,7 @@ import { initialPsychicalFeatures } from "../utils/contants";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import { withStyles } from "@material-ui/styles";
+import { useTranslation } from "react-i18next";
 
 const CssTextField = withStyles({
   root: {
@@ -18,6 +19,8 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
+const STYLIST_ID = 1;
+
 const InputArea = ({
   sendMessage,
   input,
@@ -25,6 +28,7 @@ const InputArea = ({
   pending,
   selectedPrompt,
 }: any) => {
+  const { t } = useTranslation();
   const { width } = useWindowSize();
 
   const [psyhicalFeatures, setPsyhicalFeatures] = useState(
@@ -43,7 +47,7 @@ const InputArea = ({
 
   return (
     <>
-      {selectedPrompt.key === "Stylist" ? (
+      {selectedPrompt.id === STYLIST_ID ? (
         <Grid
           sx={{
             display: "flex",
@@ -62,7 +66,7 @@ const InputArea = ({
                 }}
               >
                 <CssTextField
-                  label={feature.key}
+                  label={t(feature.key)}
                   value={feature.value}
                   variant="outlined"
                   InputLabelProps={{
@@ -121,7 +125,7 @@ const InputArea = ({
                 sendMessage(input);
               }
             }}
-            placeholder="Enter your message"
+            placeholder={t("enterMessage") as string}
           />
           <Button
             disabled={pending}

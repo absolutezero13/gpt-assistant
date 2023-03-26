@@ -1,11 +1,12 @@
 import { Button, Grid, List, Typography } from "@mui/material";
 import { useEffect, useRef } from "react";
-import { prompts } from "../data/prompts";
+import usePrompts from "../hooks/usePrompts";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import styles from "../style/promptOptions.module.css";
 
 const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
+  const prompts = usePrompts();
   const ref = useRef<HTMLDivElement>(null);
   const { width } = useWindowSize();
 

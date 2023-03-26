@@ -1,48 +1,64 @@
+import en from "../assets/en.png";
+import tr from "../assets/tr.png";
+
+export const availabeLanguages = [
+  {
+    code: "en",
+    name: "English",
+    image: en,
+  },
+  {
+    code: "tr",
+    name: "Türkçe",
+    image: tr,
+  },
+];
+
 export const initialPsychicalFeatures = [
   {
-    key: "Height",
+    key: "height",
     value: "",
     type: "text",
     postFix: "cm",
   },
   {
-    key: "Weight",
+    key: "weight",
     value: "",
     type: "text",
     postFix: "kg",
   },
   {
-    key: "Body Type",
+    key: "bodyType",
     value: "",
     type: "text",
   },
   {
-    key: "Age",
+    key: "age",
     value: "",
     type: "text",
   },
   {
-    key: "Eye Color",
+    key: "eyeColor",
     value: "",
     type: "text",
   },
   {
-    key: "Hair Color",
+    key: "hairColor",
     value: "",
     type: "text",
   },
   {
-    key: "Season",
+    key: "season",
     value: "",
     type: "text",
   },
   {
-    key: "Style",
+    key: "style",
     value: "",
     type: "text",
   },
   {
-    key: "Additional Details",
+    key: "additional Details",
     value: "",
     type: "text",
   },

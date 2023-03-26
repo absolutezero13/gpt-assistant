@@ -5,16 +5,17 @@ import { Prompt, prompts, rememberPrompt } from "./data/prompts";
 import { Messages } from "./components/Messages";
 import { InputArea } from "./components/InputArea";
 import { Message } from "./api/types";
-import { PromptOptions } from "./components/PromptOptions";
 import { SideBar } from "./components/SideBar";
-import { Grid } from "@mui/material";
-import { messages as mockMessages } from "./data/mocks";
+import { Box, Grid, MenuItem, Select } from "@mui/material";
 import styles from "./style/general.module.css";
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { useWindowSize } from "./hooks/useWindowSize";
 import { breakPoints } from "./style/breakPoints";
 import Microphone from "./components/Microphone";
+import { availabeLanguages } from "./utils/contants";
+import { useTranslation } from "react-i18next";
+import { makeStyles, withStyles } from "@material-ui/styles";
+import { CheckCircleOutline } from "@mui/icons-material";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
@@ -29,13 +30,35 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+const useStyles = makeStyles({
+  select: {
+    "&:before": {
+      borderColor: "white",
+    },
+    "&:after": {
+      borderColor: "white",
+    },
+    "&:not(.Mui-disabled):hover::before": {
+      borderColor: "white",
+    },
+  },
+  icon: {
+    fill: "white",
+  },
+  root: {
+    color: "white",
+  },
+});
+
 function App() {
   const { width } = useWindowSize();
+  const { t, i18n } = useTranslation();
   const [input, setInput] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messages, setMessages] = useState<Message[]>(selectedPrompt.messages);
   const [pending, setPending] = useState(false);
   const [tokens, setTokens] = useState<number | null>(null);
+  const classes = useStyles();
 
   useEffect(() => {
     getTokens().then((res) => {
@@ -43,6 +66,10 @@ function App() {
       setTokens(res.tokenLimit - res.tokensUsed);
     });
   }, []);
+
+  const onLanguageChange = (e: any) => {
+    i18n.changeLanguage(e.target.value);
+  };
 
   const sendMessage = async (text: string) => {
     if (!text) return;
@@ -122,6 +149,72 @@ function App() {
           flex: 1,
         }}
       >
+        <Select
+          displayEmpty
+          className={styles.select}
+          value={i18n.language.toUpperCase()}
+          sx={{
+            width: "7rem",
+            color: "#fff",
+            marginTop: "1.5rem",
+            ".MuiOutlinedInput-notchedOutline": {
+              borderColor: "#fff",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#fff",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#fff",
+            },
+            ".MuiSvgIcon-root ": {
+              fill: "white !important",
+            },
+          }}
+          inputProps={{
+            MenuProps: {
+              MenuListProps: {
+                sx: {
+                  backgroundColor: "#fff",
+                },
+              },
+            },
+          }}
+          onChange={onLanguageChange}
+          renderValue={(value: string) => {
+            return (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={
+                    availabeLanguages.find(
+                      (lang) => lang.code === i18n.language
+                    )!.image
+                  }
+                  alt="flag"
+                  style={{ width: "1.5rem", marginRight: "0.5rem" }}
+                />
+                {value}
+              </Box>
+            );
+          }}
+        >
+          {availabeLanguages.map((lang) => (
+            <MenuItem
+              key={lang.code}
+              value={lang.code}
+              onClick={onLanguageChange}
+            >
+              {lang.name}
+              {lang.code === i18n.language && (
+                <CheckCircleOutline sx={{ color: "green", ml: 2 }} />
+              )}
+            </MenuItem>
+          ))}
+        </Select>
         <Messages
           messages={messages}
           pending={pending}
