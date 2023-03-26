@@ -1,6 +1,7 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import styles from "../style/inputArea.module.css";
+import Microphone from "./Microphone";
 
 const InputArea = ({ sendMessage, input, setInput, pending }: any) => {
   return (
@@ -29,6 +30,7 @@ const InputArea = ({ sendMessage, input, setInput, pending }: any) => {
       >
         <SendIcon />
       </Button>
+      {/* <Microphone setInput={setInput} /> */}
     </Grid>
   );
 };

@@ -1,48 +1,43 @@
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
+import { useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import styles from "../style/inputArea.module.css";
 
-const Microphone = ({ sendMessage }: any) => {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
+const Microphone = ({ setInput }: any) => {
+  const { transcript, listening, isMicrophoneAvailable } =
+    useSpeechRecognition();
+
+  useEffect(() => {
+    if (transcript) {
+      setInput(transcript);
+    }
+  }, [transcript]);
+
+  const handleRecord = () => {
+    if (listening) {
+      SpeechRecognition.stopListening();
+    } else {
+      SpeechRecognition.startListening({
+        language: "tr-TR",
+      });
+    }
+  };
 
   return (
-    <div
-      style={{
-        color: "#fff",
+    <Button
+      className={styles.button}
+      sx={{
+        width: "7rem",
       }}
+      variant="outlined"
+      onClick={handleRecord}
     >
-      <p>Microphone: {listening ? "on" : "off"}</p>
-      <Button
-        variant="outlined"
-        onClick={() =>
-          SpeechRecognition.startListening({
-            continuous: true,
-            language: "tr-TR",
-          })
-        }
-      >
-        Start
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          SpeechRecognition.stopListening();
-          sendMessage(transcript);
-        }}
-      >
-        Stop
-      </Button>
-      <Button variant="outlined" onClick={resetTranscript}>
-        Reset
-      </Button>
-      <p>{transcript}</p>
-    </div>
+      <KeyboardVoiceIcon />
+      {listening ? "Stop" : "Record"}
+    </Button>
   );
 };
 

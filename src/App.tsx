@@ -14,6 +14,7 @@ import styles from "./style/general.module.css";
 import { initializeApp } from "firebase/app";
 import { useWindowSize } from "./hooks/useWindowSize";
 import { breakPoints } from "./style/breakPoints";
+import Microphone from "./components/Microphone";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
@@ -105,7 +106,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Microphone sendMessage={sendMessage} /> */}
       <SideBar
         selectedPrompt={selectedPrompt}
         setSelectedPrompt={setSelectedPrompt}
