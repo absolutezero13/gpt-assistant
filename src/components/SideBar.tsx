@@ -33,6 +33,7 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
         position="fixed"
         sx={{
           height: appBarHeight,
+          zIndex: 100,
         }}
       >
         <Toolbar>

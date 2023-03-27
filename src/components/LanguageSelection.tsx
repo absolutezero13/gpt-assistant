@@ -39,20 +39,12 @@ const LanguageSelection = () => {
       value={i18n.language.toUpperCase()}
       sx={{
         position: "absolute",
+        zIndex: 999,
+        marginTop: "0.5rem",
+        right: "2rem",
+        top: "1rem",
         width: "7rem",
         color: "#fff",
-        ".MuiOutlinedInput-notchedOutline": {
-          borderColor: "#fff",
-        },
-        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-          borderColor: "#fff",
-        },
-        "&:hover .MuiOutlinedInput-notchedOutline": {
-          borderColor: "#fff",
-        },
-        ".MuiSvgIcon-root ": {
-          fill: "white !important",
-        },
       }}
       inputProps={{
         MenuProps: {
