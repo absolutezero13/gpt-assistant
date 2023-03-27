@@ -5,26 +5,8 @@
 }
 
 .button {
-  padding: 10px;
+  /* padding: 10px; */
   cursor: pointer;
-  width: 10rem;
-  justify-content: flex-start;
-}
-
-@media screen and (max-width: 768px) {
-  .list {
-    flex-direction: row;
-    overflow-x: scroll;
-  }
-
-  .list::-webkit-scrollbar {
-    display: none;
-  }
-
-  .button {
-    width: 5rem;
-    height: 4rem;
-    padding: 5px;
-    /* margin-right: 1rem; */
-  }
+  /* width: 10rem; */
+  /* justify-content: flex-start; */
 }
