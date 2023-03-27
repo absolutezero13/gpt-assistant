@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 export type Prompt = {
   key: string;
   text: string;
+  explanation: string;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
   id: number;
   shouldRememberConversation: boolean;
@@ -25,6 +26,7 @@ export const usePrompts = () => {
     {
       key: t("defaultLabel"),
       text: t("defaultPrompt"),
+      explanation: t("defaultExplanation"),
       icon: SettingsIcon,
       id: 0,
       shouldRememberConversation: true,
@@ -33,6 +35,7 @@ export const usePrompts = () => {
     {
       key: t("stylistLabel"),
       text: t("stylistPrompt"),
+      explanation: t("stylistExplanation"),
       icon: Man3Icon,
       id: 1,
       shouldRememberConversation: false,
@@ -41,6 +44,7 @@ export const usePrompts = () => {
     {
       key: t("doctorLabel"),
       text: t("doctorPrompt"),
+      explanation: t("doctorExplanation"),
       icon: MonitorHeartIcon,
       id: 2,
       shouldRememberConversation: true,
@@ -49,6 +53,7 @@ export const usePrompts = () => {
     {
       key: t("offensivenessLabel"),
       text: t("offensivenessPrompt"),
+      explanation: t("offensivenessExplanation"),
       icon: FlagCircleIcon,
       id: 3,
       shouldRememberConversation: false,
@@ -57,6 +62,7 @@ export const usePrompts = () => {
     {
       key: t("drunkLabel"),
       text: t("drunkPrompt"),
+      explanation: t("drunkExplanation"),
       icon: SportsBarIcon,
       id: 4,
       shouldRememberConversation: true,
@@ -65,6 +71,7 @@ export const usePrompts = () => {
     {
       key: t("mentorLabel"),
       text: t("mentorPrompt"),
+      explanation: t("mentorExplanation"),
       icon: WorkIcon,
       id: 5,
       shouldRememberConversation: true,
@@ -73,19 +80,12 @@ export const usePrompts = () => {
     {
       key: t("akpLabel"),
       text: t("akpPrompt"),
+      explanation: t("akpExplanation"),
       icon: Man3Icon,
       id: 6,
       shouldRememberConversation: true,
       messages: [],
     },
-    // {
-    //   key: t("chessLabel"),
-    //   text: t("chessPrompt"),
-    //   icon: Man3Icon,
-    //   id: 7,
-    //   shouldRememberConversation: true,
-    //   messages: [],
-    // },
   ];
   return prompts;
 };

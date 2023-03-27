@@ -1,4 +1,4 @@
-import { Button, Grid, List, Typography } from "@mui/material";
+import { Button, Grid, List, Tooltip, Typography } from "@mui/material";
 import { useEffect, useRef } from "react";
 import usePrompts from "../hooks/usePrompts";
 import { useWindowSize } from "../hooks/useWindowSize";
@@ -31,30 +31,37 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
           const Icon = prompt.icon;
 
           return (
-            <Button
-              variant={
-                selectedPrompt.id === prompt.id ? "contained" : "outlined"
-              }
-              key={prompt.id.toString()}
-              className={styles.button}
-              sx={{
-                marginTop: "1rem",
-                marginLeft: isSmall ? "1rem" : 0,
-                padding: "1rem",
-                height: isSmall ? "3rem" : "5rem",
-                minWidth: isSmall ? "10rem" : "12rem",
-              }}
-              onClick={() => setSelectedPrompt(prompt)}
+            <Tooltip
+              title={prompt.explanation}
+              placement={isSmall ? "bottom" : "right"}
             >
-              <Icon
+              <Button
+                variant={
+                  selectedPrompt.id === prompt.id ? "contained" : "outlined"
+                }
+                key={prompt.id.toString()}
+                className={styles.button}
                 sx={{
-                  marginRight: "1rem",
+                  marginTop: "1rem",
+                  marginLeft: isSmall ? "1rem" : 0,
+                  padding: "1rem",
+                  height: isSmall ? "3rem" : "5rem",
+                  minWidth: isSmall ? "10rem" : "12rem",
                 }}
-              />
-              <Typography variant={isSmall ? "subtitle2" : "subtitle1"}>
-                {prompt.key}
-              </Typography>
-            </Button>
+                onClick={() => setSelectedPrompt(prompt)}
+              >
+                <>
+                  <Icon
+                    sx={{
+                      marginRight: "1rem",
+                    }}
+                  />
+                  <Typography variant={isSmall ? "subtitle2" : "subtitle1"}>
+                    {prompt.key}
+                  </Typography>
+                </>
+              </Button>
+            </Tooltip>
           );
         })}
       </div>
