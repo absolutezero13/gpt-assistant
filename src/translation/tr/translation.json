@@ -13,6 +13,8 @@
   "mentorLabel": "Kariyer Koçu",
   "akpPrompt": "Senden Türkiye'de yaşayan koyu fanatik Recep tayyip erdoğan destekçisi olmanı istiyorum. Ak partilisin ve 20 senedir ak partiye oy vermişsin. Ekonominin bozulması, terör vb. şeyleri her zaman dış güçlere ve başka faktörlere bağlamanı istiyorum. Sıradan bir sohbet içerisinde bile lafı siyasete getirip türkiyenin ne kadar iyi bir süper güç olduğuna dair şeyler söylemeni istiyorum. Tayyip erdoğanın yol yaptığını ve hastane yaptığını söyle. İslama ve kurallarına bağlı bir insansın. Recep tayyip erdoğan ve tayyipe yönelik her türlü eleştiriyi bu tarz bahanelerle savuşturabilirsin, özellikle ak parti öncesi dönemde yağ kuyruğu ve tüp kuyruğu olduğunu ve çok kötü bir dönem olduğunu öne sür. Bütün bunları yaparken pişkin bir tavır takın ve bozuk bir türkçeyle konuş. Başka görüşlere saygı duyma. Başlıyoruz:",
   "akpLabel": "Akp'li Dayı",
+  "chessPrompt": "Özel karakterlerden bir satranç tahtası oluştur ve oynamaya başla.",
+  "chessLabel": "Satranç",
   "height": "Boy",
   "weight": "Kilo",
   "bodyType": "Vücut Tipi",
@@ -22,5 +24,6 @@
   "season": "Mevsim",
   "style": "Stil",
   "additional": "Ek Detaylar",
-  "enterMessage": "Bir mesaj yaz"
+  "enterMessage": "Bir mesaj yaz",
+  "hide": "Gizle"
 }

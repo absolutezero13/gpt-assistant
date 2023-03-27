@@ -9,7 +9,7 @@ import WorkIcon from "@mui/icons-material/Work";
 import Man3Icon from "@mui/icons-material/Man3";
 import { useTranslation } from "react-i18next";
 
-type Prompt = {
+export type Prompt = {
   key: string;
   text: string;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
@@ -78,6 +78,14 @@ export const usePrompts = () => {
       shouldRememberConversation: true,
       messages: [],
     },
+    // {
+    //   key: t("chessLabel"),
+    //   text: t("chessPrompt"),
+    //   icon: Man3Icon,
+    //   id: 7,
+    //   shouldRememberConversation: true,
+    //   messages: [],
+    // },
   ];
   return prompts;
 };

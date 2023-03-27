@@ -8,6 +8,8 @@ import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import { withStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const CssTextField = withStyles({
   root: {
@@ -34,6 +36,7 @@ const InputArea = ({
   const [psyhicalFeatures, setPsyhicalFeatures] = useState(
     initialPsychicalFeatures
   );
+  const [styleInputsVisible, setStyleInputsVisible] = useState(true);
 
   const styleInput = useMemo(() => {
     let _input = "";
@@ -53,48 +56,51 @@ const InputArea = ({
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap",
+            justifyContent: "space-between",
           }}
         >
-          {psyhicalFeatures.map((feature) => {
-            return (
-              <Grid
-                key={feature.key}
-                sx={{
-                  marginTop: "1rem",
-                  marginLeft: "0.5rem",
-                  maxWidth: width <= breakPoints.sm ? "7rem" : undefined,
-                }}
-              >
-                <CssTextField
-                  label={t(feature.key)}
-                  value={feature.value}
-                  variant="outlined"
-                  InputLabelProps={{
-                    style: { color: "#fff" },
-                  }}
-                  inputProps={{
-                    style: { color: "#fff" },
-                  }}
-                  onChange={(e) => {
-                    const clone = [...psyhicalFeatures];
-                    const index = clone.findIndex(
-                      (item) => item.key === feature.key
-                    );
-                    clone[index].value = e.target.value;
+          {styleInputsVisible
+            ? psyhicalFeatures.map((feature) => {
+                return (
+                  <Grid
+                    key={feature.key}
+                    sx={{
+                      marginTop: "1rem",
+                      marginLeft: "0.5rem",
+                      maxWidth: width <= breakPoints.sm ? "7rem" : undefined,
+                    }}
+                  >
+                    <CssTextField
+                      label={t(feature.key)}
+                      value={feature.value}
+                      variant="outlined"
+                      InputLabelProps={{
+                        style: { color: "#fff" },
+                      }}
+                      inputProps={{
+                        style: { color: "#fff" },
+                      }}
+                      onChange={(e) => {
+                        const clone = [...psyhicalFeatures];
+                        const index = clone.findIndex(
+                          (item) => item.key === feature.key
+                        );
+                        clone[index].value = e.target.value;
 
-                    setPsyhicalFeatures(clone);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      sendMessage(input);
-                    }
-                  }}
-                  color="primary"
-                />
-              </Grid>
-            );
-          })}
+                        setPsyhicalFeatures(clone);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          sendMessage(input);
+                        }
+                      }}
+                      color="primary"
+                    />
+                  </Grid>
+                );
+              })
+            : null}
           <Button
             disabled={pending}
             variant="contained"
@@ -108,6 +114,20 @@ const InputArea = ({
             }}
           >
             <SendIcon />
+          </Button>
+          <Button
+            disabled={pending}
+            variant="contained"
+            color="secondary"
+            onClick={() => setStyleInputsVisible((prev) => !prev)}
+            className={styles.button}
+            sx={{
+              marginLeft: "1rem",
+              marginTop: "1rem",
+              width: "7rem",
+            }}
+          >
+            {styleInputsVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </Button>
         </Grid>
       ) : (
