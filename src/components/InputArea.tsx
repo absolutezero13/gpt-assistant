@@ -89,12 +89,6 @@ const InputArea = ({
 
                         setPsyhicalFeatures(clone);
                       }}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          sendMessage(input);
-                        }
-                      }}
                       color="primary"
                     />
                   </Grid>

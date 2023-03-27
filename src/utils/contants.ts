@@ -58,7 +58,7 @@ export const initialPsychicalFeatures = [
     type: "text",
   },
   {
-    key: "additional Details",
+    key: "additional",
     value: "",
     type: "text",
   },
