@@ -10,6 +10,7 @@ import styles from "./style/general.module.css";
 import { initializeApp } from "firebase/app";
 import LanguageSelection from "./components/LanguageSelection";
 import usePrompts, { Prompt } from "./hooks/usePrompts";
+import { useTranslation } from "react-i18next";
 //test
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
@@ -25,6 +26,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 function App() {
+  const { t } = useTranslation();
   const prompts = usePrompts();
   const [input, setInput] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
@@ -34,7 +36,6 @@ function App() {
 
   useEffect(() => {
     getTokens().then((res) => {
-      console.log("res", res);
       setTokens(res.tokenLimit - res.tokensUsed);
     });
   }, []);
@@ -66,10 +67,12 @@ function App() {
           .join("\n");
       }
 
-      const prompt = `${selectedPrompt.text}${conversationHistory}\n-${text}`;
+      const prompt = `${t(
+        selectedPrompt.text
+      )}${conversationHistory}\n-${text}`;
 
       const res = await createChatCompletion(prompt);
-      console.log("createChatCompletion res", res);
+
       if (res?.status === 402) {
         alert(
           "You have run out of tokens. Please purchase more tokens to continue using the app."
@@ -78,7 +81,6 @@ function App() {
       }
 
       const tokenResp = await updateTokens(res.usage.total_tokens);
-      console.log("tokenResp", tokenResp);
       setTokens(tokenResp.tokenLimit - tokenResp.tokensUsed);
 
       setMessages((prev) => [

@@ -1,10 +1,12 @@
 import { Button, Tooltip, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import usePrompts from "../hooks/usePrompts";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import styles from "../style/promptOptions.module.css";
 
 const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
+  const { t } = useTranslation();
   const prompts = usePrompts();
   const { width } = useWindowSize();
 
@@ -16,7 +18,7 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
         {prompts.map((prompt) => {
           const Icon = prompt.icon;
           return (
-            <Tooltip title={prompt.explanation} placement="right">
+            <Tooltip title={t(prompt.explanation)} placement="right">
               <Button
                 variant={
                   selectedPrompt.id === prompt.id ? "contained" : "outlined"
@@ -39,7 +41,7 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
                     }}
                   />
                   <Typography variant={isSmall ? "subtitle2" : "subtitle1"}>
-                    {prompt.key}
+                    {t(prompt.key)}
                   </Typography>
                 </>
               </Button>
