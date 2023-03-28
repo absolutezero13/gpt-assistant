@@ -12,7 +12,7 @@ import { useWindowSize } from "./hooks/useWindowSize";
 import { breakPoints } from "./style/breakPoints";
 import LanguageSelection from "./components/LanguageSelection";
 import usePrompts, { Prompt } from "./hooks/usePrompts";
-
+//test
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
   authDomain: "gpt-assistant-19b00.firebaseapp.com",
