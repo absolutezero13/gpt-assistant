@@ -8,11 +8,9 @@ import { SideBar } from "./components/SideBar";
 import { Grid } from "@mui/material";
 import styles from "./style/general.module.css";
 import { initializeApp } from "firebase/app";
-import { useWindowSize } from "./hooks/useWindowSize";
-import { breakPoints } from "./style/breakPoints";
 import LanguageSelection from "./components/LanguageSelection";
 import usePrompts, { Prompt } from "./hooks/usePrompts";
-
+//test
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
   authDomain: "gpt-assistant-19b00.firebaseapp.com",
@@ -28,7 +26,6 @@ const app = initializeApp(firebaseConfig);
 
 function App() {
   const prompts = usePrompts();
-  const { width } = useWindowSize();
   const [input, setInput] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messages, setMessages] = useState<Message[]>(selectedPrompt.messages);
@@ -110,12 +107,11 @@ function App() {
       />
       <Grid
         sx={{
-          width: "100%",
+          height: "100dvh",
           paddingLeft: "2rem",
           paddingRight: "2rem",
           display: "flex",
           flexDirection: "column",
-          maxHeight: width <= breakPoints.sm ? "85dvh" : "100vh",
           flex: 1,
         }}
       >
