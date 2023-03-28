@@ -29,11 +29,14 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
   return (
     <StyledGrid>
       <AppBar
-        color="inherit"
+        color={isSmall ? "transparent" : "inherit"}
         position="fixed"
         sx={{
+          left: 0,
+          width: isSmall ? drawerWidth + "1rem" : drawerWidth,
           height: appBarHeight,
           zIndex: 100,
+          boxShadow: 0,
         }}
       >
         <Toolbar>

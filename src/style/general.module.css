@@ -1,12 +1,3 @@
-.appGrid {
-  width: 100%;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  display: flex;
-  flex-direction: column;
-  max-height: 100dvh;
-}
-
 .tokens {
   position: absolute;
   top: 0;
