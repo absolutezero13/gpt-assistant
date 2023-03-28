@@ -45,6 +45,18 @@ const LanguageSelection = () => {
         top: "1rem",
         width: "7rem",
         color: "#fff",
+        ".MuiOutlinedInput-notchedOutline": {
+          borderColor: "#fff",
+        },
+        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+          borderColor: "#fff",
+        },
+        "&:hover .MuiOutlinedInput-notchedOutline": {
+          borderColor: "#fff",
+        },
+        ".MuiSvgIcon-root ": {
+          fill: "white !important",
+        },
       }}
       inputProps={{
         MenuProps: {

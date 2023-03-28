@@ -107,7 +107,7 @@ function App() {
       />
       <Grid
         sx={{
-          height: "100vh",
+          height: "100dvh",
           paddingLeft: "2rem",
           paddingRight: "2rem",
           display: "flex",

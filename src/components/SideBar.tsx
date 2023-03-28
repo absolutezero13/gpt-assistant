@@ -17,11 +17,12 @@ const StyledGrid = styled(Stack)(({ isSmall }: any) => ({
   width: isSmall ? undefined : 240,
 }));
 
+const DRAWER_HEIGHT = 250;
+const APPBAR_HEIGHT = 80;
+
 const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
   const { width } = useWindowSize();
   const isSmall = width <= breakPoints.sm;
-  const drawerWidth = 250;
-  const appBarHeight = 80;
   const [showDrawer, setShowDrawer] = useState(false);
 
   const handleDrawerToggle = () => setShowDrawer(!showDrawer);
@@ -33,8 +34,8 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
         position="fixed"
         sx={{
           left: 0,
-          width: isSmall ? drawerWidth + "1rem" : drawerWidth,
-          height: appBarHeight,
+          width: isSmall ? DRAWER_HEIGHT + "1rem" : DRAWER_HEIGHT,
+          height: APPBAR_HEIGHT,
           zIndex: 100,
           boxShadow: 0,
         }}
@@ -60,8 +61,8 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
           sx={{
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
-              mt: `${appBarHeight}px`,
+              width: DRAWER_HEIGHT,
+              mt: `${APPBAR_HEIGHT}px`,
             },
           }}
         >
@@ -76,8 +77,8 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
           sx={{
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
-              mt: { sm: `${appBarHeight}px` },
+              width: DRAWER_HEIGHT,
+              mt: { sm: `${APPBAR_HEIGHT}px` },
             },
           }}
         >
