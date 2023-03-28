@@ -10,7 +10,7 @@ import styles from "./style/general.module.css";
 import { initializeApp } from "firebase/app";
 import LanguageSelection from "./components/LanguageSelection";
 import usePrompts, { Prompt } from "./hooks/usePrompts";
-
+//test
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
   authDomain: "gpt-assistant-19b00.firebaseapp.com",
