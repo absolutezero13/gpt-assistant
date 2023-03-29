@@ -18,9 +18,7 @@ export const signInWithgoogle = async () => {
     const token = credential?.accessToken;
     // The signed-in user info.
     const user = result.user;
-    console.log("user", user);
-    console.log("token", token);
-  } catch (error) {
+  } catch (error: any) {
     // IdP data available using getAdditionalUserInfo(result)
     // ...
     // Handle Errors here.
