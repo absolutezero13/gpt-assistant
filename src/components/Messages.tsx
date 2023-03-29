@@ -7,6 +7,7 @@ import { theme } from "../style/theme";
 import styles from "../style/messages.module.css";
 import { Message } from "../api/types";
 import Loader from "./Loader";
+import LanguageSelection from "./LanguageSelection";
 
 const dynamicStyles = {
   user: {
@@ -35,6 +36,7 @@ const Messages = ({ messages, pending, selectedPrompt }: any) => {
 
   return (
     <Grid ref={ref} mt={3} mb={3} className={styles.container}>
+      <LanguageSelection />
       {messages.map((item: Message) => {
         return (
           <div
