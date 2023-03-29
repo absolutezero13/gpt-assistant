@@ -5,12 +5,13 @@ import { Messages } from "./components/Messages";
 import { InputArea } from "./components/InputArea";
 import { Message } from "./api/types";
 import { SideBar } from "./components/SideBar";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import styles from "./style/general.module.css";
 import { initializeApp } from "firebase/app";
 import LanguageSelection from "./components/LanguageSelection";
 import usePrompts, { Prompt } from "./hooks/usePrompts";
 import { useTranslation } from "react-i18next";
+import { getAuth, User } from "firebase/auth";
 //test
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
@@ -34,8 +35,17 @@ function App() {
   const [messagesHistory] = useState<{ message: Message; id: number }[]>([]);
   const [pending, setPending] = useState(false);
   const [tokens, setTokens] = useState<number | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+    const auth = getAuth();
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
     getTokens().then((res) => {
       setTokens(res.tokenLimit - res.tokensUsed);
     });
@@ -119,6 +129,7 @@ function App() {
   return (
     <div className="App">
       <SideBar
+        user={user}
         selectedPrompt={selectedPrompt}
         setSelectedPrompt={setSelectedPrompt}
       />
@@ -132,7 +143,6 @@ function App() {
           flex: 1,
         }}
       >
-        <LanguageSelection />
         <Messages
           messages={getMessagesHistory()}
           pending={pending}

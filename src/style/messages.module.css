@@ -10,7 +10,6 @@
   background-size: 150px 150px;
   background-position: center;
   overflow-x: hidden;
-  overflow-y: scroll;
 }
 
 .container::-webkit-scrollbar-track {

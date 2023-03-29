@@ -1,6 +1,8 @@
 import {
   AppBar,
+  Button,
   Drawer,
+  Grid,
   IconButton,
   Stack,
   Toolbar,
@@ -12,6 +14,11 @@ import { PromptOptions } from "./PromptOptions";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import styled from "@emotion/styled";
+import { Google, Logout } from "@mui/icons-material";
+import { signInWithgoogle, signOut } from "../providers/googleAuth";
+import { User } from "firebase/auth";
+import { Prompt } from "../hooks/usePrompts";
+import styles from "../style/sideBar.module.css";
 
 const StyledGrid = styled(Stack)(({ isSmall }: any) => ({
   width: isSmall ? undefined : 240,
@@ -20,8 +27,14 @@ const StyledGrid = styled(Stack)(({ isSmall }: any) => ({
 const DRAWER_HEIGHT = 250;
 const APPBAR_HEIGHT = 80;
 
-const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
-  const { width } = useWindowSize();
+interface SideBarProps {
+  selectedPrompt: Prompt;
+  setSelectedPrompt: any;
+  user: User | null;
+}
+
+const SideBar = ({ selectedPrompt, setSelectedPrompt, user }: SideBarProps) => {
+  const { width, height } = useWindowSize();
   const isSmall = width <= breakPoints.sm;
   const [showDrawer, setShowDrawer] = useState(false);
 
@@ -48,9 +61,37 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography color="#fff" variant="h6" mt={2} ml={isSmall ? 0 : 3}>
-            Pick an Assistant
-          </Typography>
+          {isSmall &&
+            (user ? (
+              <>
+                <img
+                  src={user.photoURL as string}
+                  alt="user"
+                  style={{
+                    width: "1.5rem",
+                    marginRight: "0.5rem",
+                    borderRadius: 99,
+                  }}
+                />
+                <Button onClick={signOut} variant="contained">
+                  <Logout />
+                </Button>
+              </>
+            ) : (
+              <Button
+                onClick={signInWithgoogle}
+                variant="contained"
+                color="primary"
+              >
+                <Google />
+                <Typography ml={1}>Sign in</Typography>
+              </Button>
+            ))}
+          {!isSmall && (
+            <Typography color="#fff" variant="h6" mt={2} ml={isSmall ? 0 : 3}>
+              Pick an Assistant
+            </Typography>
+          )}
         </Toolbar>
       </AppBar>
       {isSmall ? (
@@ -79,9 +120,46 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt }: any) => {
               boxSizing: "border-box",
               width: DRAWER_HEIGHT,
               mt: { sm: `${APPBAR_HEIGHT}px` },
+              height: `calc(100vh - ${APPBAR_HEIGHT}px)`,
             },
           }}
         >
+          {user ? (
+            <>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <img
+                  src={user.photoURL as string}
+                  alt="user"
+                  style={{
+                    width: "1.5rem",
+                    marginRight: "0.5rem",
+                    borderRadius: 99,
+                  }}
+                />
+                <Typography color="#fff" variant="h6">
+                  {user.displayName}
+                </Typography>
+              </Grid>
+              <Button onClick={signOut} variant="contained" color="primary">
+                <Logout />
+                <Typography ml={1}>Logout</Typography>
+              </Button>
+            </>
+          ) : (
+            <Button
+              onClick={signInWithgoogle}
+              variant="contained"
+              color="primary"
+            >
+              <Google />
+              <Typography ml={1}>Sign in</Typography>
+            </Button>
+          )}
           <PromptOptions
             setSelectedPrompt={setSelectedPrompt}
             selectedPrompt={selectedPrompt}
