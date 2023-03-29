@@ -12,7 +12,6 @@ import LanguageSelection from "./components/LanguageSelection";
 import usePrompts, { Prompt } from "./hooks/usePrompts";
 import { useTranslation } from "react-i18next";
 import { getAuth, User } from "firebase/auth";
-
 //test
 const firebaseConfig = {
   apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
@@ -33,6 +32,7 @@ function App() {
   const [input, setInput] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messages, setMessages] = useState<Message[]>(selectedPrompt.messages);
+  const [messagesHistory] = useState<{ message: Message; id: number }[]>([]);
   const [pending, setPending] = useState(false);
   const [tokens, setTokens] = useState<number | null>(null);
   const [user, setUser] = useState<User | null>(null);
@@ -70,6 +70,13 @@ function App() {
           content: text,
         },
       ]);
+      messagesHistory.push({
+        message: {
+          role: "user",
+          content: text,
+        },
+        id: selectedPrompt.id,
+      });
       let conversationHistory = "";
       if (selectedPrompt.shouldRememberConversation) {
         conversationHistory += messages
@@ -93,11 +100,14 @@ function App() {
 
       const tokenResp = await updateTokens(res.usage.total_tokens);
       setTokens(tokenResp.tokenLimit - tokenResp.tokensUsed);
-
       setMessages((prev) => [
         ...(prev as Message[]),
         res.choices[0].message as Message,
       ]);
+      messagesHistory.push({
+        message: res.choices[0].message as Message,
+        id: selectedPrompt.id,
+      });
     } catch (error: any) {
       console.log("error", error);
       if (error.response.status === 402) {
@@ -111,7 +121,11 @@ function App() {
       setPending(false);
     }
   };
-
+  const getMessagesHistory = (): Message[] => {
+    return messagesHistory
+      .filter((el) => el.id === selectedPrompt.id)
+      .map((el) => el.message);
+  };
   return (
     <div className="App">
       <SideBar
@@ -130,7 +144,7 @@ function App() {
         }}
       >
         <Messages
-          messages={messages}
+          messages={getMessagesHistory()}
           pending={pending}
           selectedPrompt={selectedPrompt}
         />
