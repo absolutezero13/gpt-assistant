@@ -18,6 +18,7 @@ import { Google, Logout } from "@mui/icons-material";
 import { signInWithgoogle, signOut } from "../providers/googleAuth";
 import { User } from "firebase/auth";
 import { Prompt } from "../hooks/usePrompts";
+import styles from "../style/sideBar.module.css";
 
 const StyledGrid = styled(Stack)(({ isSmall }: any) => ({
   width: isSmall ? undefined : 240,
@@ -33,7 +34,7 @@ interface SideBarProps {
 }
 
 const SideBar = ({ selectedPrompt, setSelectedPrompt, user }: SideBarProps) => {
-  const { width } = useWindowSize();
+  const { width, height } = useWindowSize();
   const isSmall = width <= breakPoints.sm;
   const [showDrawer, setShowDrawer] = useState(false);
 
@@ -119,6 +120,7 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt, user }: SideBarProps) => {
               boxSizing: "border-box",
               width: DRAWER_HEIGHT,
               mt: { sm: `${APPBAR_HEIGHT}px` },
+              height: `calc(100vh - ${APPBAR_HEIGHT}px)`,
             },
           }}
         >
