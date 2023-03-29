@@ -129,14 +129,15 @@ const InputArea = ({
           <TextField
             multiline
             value={input}
-            rows={2}
+            minRows={1}
+            maxRows={7}
             disabled={pending}
             className={styles.input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                e.preventDefault();
-                sendMessage(input);
+                if (e.shiftKey) setInput((prev: any) => prev + "\n");
+                else sendMessage(input);
               }
             }}
             placeholder={t("enterMessage") as string}
