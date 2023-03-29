@@ -14,16 +14,19 @@
 }
 
 .container::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #865dffaa;
+  visibility: hidden;
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #865dffaa; */
 }
 
 .container::-webkit-scrollbar {
-  width: 6px;
-  background-color: #000;
+  visibility: hidden;
+  /* width: 6px;
+  background-color: #000; */
 }
 .container::-webkit-scrollbar-thumb {
-  background-color: #ffa3fdbb;
+  visibility: hidden;
+  /* background-color: #ffa3fdbb; */
 }
 
 .messageItem {
