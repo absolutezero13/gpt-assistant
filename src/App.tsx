@@ -5,7 +5,13 @@ import { Messages } from "./components/Messages";
 import { InputArea } from "./components/InputArea";
 import { CustomUser, Message } from "./api/types";
 import { SideBar } from "./components/SideBar";
-import { Grid } from "@mui/material";
+import {
+  Alert,
+  Backdrop,
+  CircularProgress,
+  Collapse,
+  Grid,
+} from "@mui/material";
 import styles from "./style/general.module.css";
 import { initializeApp } from "firebase/app";
 import usePrompts, { Prompt } from "./hooks/usePrompts";
@@ -33,10 +39,17 @@ function App() {
   const [pending, setPending] = useState(false);
   const [tokens, setTokens] = useState<number | null>(null);
   const [user, setUser] = useState<CustomUser | null>(null);
+  const [errorAlert, setErrorAlert] = useState<string | null>(null);
+  const [appLoading, setAppLoading] = useState(true);
 
   useEffect(() => {
     const auth = getAuth();
+    getTokens().then((res) => {
+      setTokens(res.tokenLimit - res.tokensUsed);
+      setAppLoading(false);
+    });
     auth.onAuthStateChanged(async function (user) {
+      setAppLoading(true);
       if (user) {
         const docRef = doc(db, "users", user.uid);
         const _doc = await getDoc(docRef);
@@ -58,21 +71,23 @@ function App() {
         }
       } else {
         setUser(null);
+        setMessagesHistory([]);
       }
-    });
-    getTokens().then((res) => {
-      setTokens(res.tokenLimit - res.tokensUsed);
+      setAppLoading(false);
     });
   }, []);
 
   const sendMessage = async (text: string) => {
     if (!text) return;
 
+    if (!user) {
+      setErrorAlert(t("alerts.login"));
+      return;
+    }
+
     try {
       if (tokens! <= 0) {
-        alert(
-          "You have run out of tokens. Please purchase more tokens to continue using the app."
-        );
+        setErrorAlert(t("alerts.noToken"));
         return;
       }
       const userRef = doc(db, "users", user?.uid as string);
@@ -104,9 +119,7 @@ function App() {
       const res = await createChatCompletion(prompt);
 
       if (res?.status === 402) {
-        alert(
-          "You have run out of tokens. Please purchase more tokens to continue using the app."
-        );
+        setErrorAlert(t("alerts.noToken"));
         return;
       }
 
@@ -124,14 +137,8 @@ function App() {
       });
       setMessagesHistory((prev) => [...prev, assistantMessage as Message]);
     } catch (error: any) {
-      console.log("error", error);
-      if (error.response.status === 402) {
-        alert(
-          "You have run out of tokens. Please purchase more tokens to continue using the app."
-        );
-      }
-
       console.log(error);
+      setErrorAlert(t("alerts.generic"));
     } finally {
       setPending(false);
     }
@@ -156,10 +163,18 @@ function App() {
           flex: 1,
         }}
       >
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={appLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <Messages
           messages={getMessagesHistory()}
           pending={pending}
           selectedPrompt={selectedPrompt}
+          errorAlert={errorAlert}
+          setErrorAlert={setErrorAlert}
         />
         <InputArea
           sendMessage={sendMessage}

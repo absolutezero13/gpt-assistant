@@ -127,7 +127,6 @@ const InputArea = ({
       ) : (
         <Grid className={styles.wrapper}>
           <TextField
-            multiline
             value={input}
             rows={1}
             disabled={pending}

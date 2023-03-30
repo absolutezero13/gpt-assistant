@@ -32,5 +32,10 @@
   "style": "Stil",
   "additional": "Ek Detaylar",
   "enterMessage": "Bir mesaj yaz",
-  "hide": "Gizle"
+  "hide": "Gizle",
+  "alerts": {
+    "noToken": "Tokeniniz kalmadı. İlker'den isteyin.",
+    "login": "Lütfen giriş yapın.",
+    "generic": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin."
+  }
 }
