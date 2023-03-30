@@ -106,7 +106,7 @@ function App() {
       let conversationHistory = "";
 
       if (selectedPrompt.shouldRememberConversation) {
-        conversationHistory += messagesHistory
+        conversationHistory += getMessagesHistory()
           .slice(-5)
           .map((message) => `-${message.content}`)
           .join("\n");
@@ -186,7 +186,7 @@ function App() {
       </Grid>
       {tokens && (
         <Grid className={styles.tokens}>
-          <p>TOKENS LEFT : {tokens} </p>
+          <p>TOKENS: {tokens} </p>
         </Grid>
       )}
     </div>
