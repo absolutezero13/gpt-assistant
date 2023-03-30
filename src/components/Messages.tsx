@@ -56,7 +56,13 @@ const Messages = ({ messages, pending, selectedPrompt }: any) => {
                 }}
                 variant="body1"
               >
-                {item.role === "user" ? <PersonIcon /> : <PsychologyAltIcon />}{" "}
+                <span className={styles.icon}>
+                  {item.role === "user" ? (
+                    <PersonIcon />
+                  ) : (
+                    <PsychologyAltIcon />
+                  )}{" "}
+                </span>
                 {item.content.split("\n").map((item, key) => {
                   return (
                     <span key={key}>

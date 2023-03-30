@@ -1,7 +1,8 @@
 .container {
   flex: 0.95;
   overflow-y: scroll;
-  padding-right: 1rem;
+  padding-right: 0;
+  margin-right: 0;
   padding-bottom: 1rem;
   margin-top: 0;
   margin-bottom: 0;
@@ -10,6 +11,8 @@
   background-size: 150px 150px;
   background-position: center;
   overflow-x: hidden;
+  max-width: calc(50% + 310px);
+  align-self: center;
 }
 
 .container::-webkit-scrollbar-track {
@@ -34,20 +37,25 @@
   width: 100%;
 }
 
+.icon {
+  position: relative;
+  top: 0.3rem;
+}
+
 .message {
   color: #fff;
   display: flex;
   padding: 10px;
   border-radius: 10px;
   margin-top: 2rem;
-  width: 50%;
+  max-width: calc(50% + 310px);
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .message {
     width: 90%;
   }
-}
+} */
 
 .spinner {
   display: flex;
