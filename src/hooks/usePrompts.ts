@@ -16,7 +16,7 @@ export type Prompt = {
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
   id: number;
   shouldRememberConversation: boolean;
-  messages: Message[];
+  adminOnly?: boolean;
 };
 
 export const usePrompts = () => {
@@ -28,7 +28,6 @@ export const usePrompts = () => {
       icon: SettingsIcon,
       id: 0,
       shouldRememberConversation: true,
-      messages: [],
     },
     {
       key: "stylistLabel",
@@ -37,7 +36,6 @@ export const usePrompts = () => {
       icon: Man3Icon,
       id: 1,
       shouldRememberConversation: false,
-      messages: [],
     },
     {
       key: "doctorLabel",
@@ -46,7 +44,6 @@ export const usePrompts = () => {
       icon: MonitorHeartIcon,
       id: 2,
       shouldRememberConversation: true,
-      messages: [],
     },
     {
       key: "offensivenessLabel",
@@ -55,7 +52,6 @@ export const usePrompts = () => {
       icon: FlagCircleIcon,
       id: 3,
       shouldRememberConversation: false,
-      messages: [],
     },
     {
       key: "drunkLabel",
@@ -64,7 +60,6 @@ export const usePrompts = () => {
       icon: SportsBarIcon,
       id: 4,
       shouldRememberConversation: true,
-      messages: [],
     },
     {
       key: "mentorLabel",
@@ -73,7 +68,6 @@ export const usePrompts = () => {
       icon: WorkIcon,
       id: 5,
       shouldRememberConversation: true,
-      messages: [],
     },
     {
       key: "akpLabel",
@@ -82,7 +76,7 @@ export const usePrompts = () => {
       icon: Man3Icon,
       id: 6,
       shouldRememberConversation: true,
-      messages: [],
+      adminOnly: true,
     },
   ];
   return prompts;

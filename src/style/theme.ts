@@ -8,6 +8,9 @@ export const theme = createTheme({
     },
   },
   palette: {
+    action: {
+      disabled: "#ddd",
+    },
     primary: {
       main: "#FFA3FD",
     },
