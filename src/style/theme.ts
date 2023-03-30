@@ -8,6 +8,12 @@ export const theme = createTheme({
     },
   },
   palette: {
+    error: {
+      main: "#FF3D3D",
+    },
+    action: {
+      disabled: "#ddd",
+    },
     primary: {
       main: "#FFA3FD",
     },

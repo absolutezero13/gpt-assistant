@@ -127,17 +127,15 @@ const InputArea = ({
       ) : (
         <Grid className={styles.wrapper}>
           <TextField
-            multiline
             value={input}
-            minRows={1}
-            maxRows={7}
+            rows={1}
             disabled={pending}
             className={styles.input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 if (e.shiftKey) setInput((prev: any) => prev + "\n");
-                else sendMessage(input);
+                sendMessage(input);
               }
             }}
             placeholder={t("enterMessage") as string}

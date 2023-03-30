@@ -16,7 +16,7 @@ const resources = {
 i18n.use(initReactI18next).init({
   resources,
   lng: "tr",
-  keySeparator: false,
+  keySeparator: ".",
   interpolation: {
     escapeValue: false,
   },

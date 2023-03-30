@@ -23,10 +23,19 @@ export interface ChatCompletion {
 export interface Message {
   role: "user" | "assistant";
   content: string;
+  promptId: number;
 }
 
 export interface TokenResponse {
   tokensUsed: number;
   key: string;
   tokenLimit: number;
+}
+export interface CustomUser {
+  email: string;
+  displayName: string;
+  photoURL: string;
+  messageHistory: Message[];
+  uid: string;
+  role: "user" | "assistant";
 }

@@ -16,9 +16,9 @@ import { breakPoints } from "../style/breakPoints";
 import styled from "@emotion/styled";
 import { Google, Logout } from "@mui/icons-material";
 import { signInWithgoogle, signOut } from "../providers/googleAuth";
-import { User } from "firebase/auth";
 import { Prompt } from "../hooks/usePrompts";
 import styles from "../style/sideBar.module.css";
+import { CustomUser } from "../api/types";
 
 const StyledGrid = styled(Stack)(({ isSmall }: any) => ({
   width: isSmall ? undefined : 240,
@@ -30,7 +30,7 @@ const APPBAR_HEIGHT = 80;
 interface SideBarProps {
   selectedPrompt: Prompt;
   setSelectedPrompt: any;
-  user: User | null;
+  user: CustomUser | null;
 }
 
 const SideBar = ({ selectedPrompt, setSelectedPrompt, user }: SideBarProps) => {

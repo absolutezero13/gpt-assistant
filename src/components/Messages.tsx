@@ -1,6 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { CircularProgress, Grid, Typography } from "@mui/material";
+import {
+  Alert,
+  CircularProgress,
+  Collapse,
+  Grid,
+  Typography,
+} from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 import { theme } from "../style/theme";
@@ -8,6 +14,8 @@ import styles from "../style/messages.module.css";
 import { Message } from "../api/types";
 import Loader from "./Loader";
 import LanguageSelection from "./LanguageSelection";
+import { useTranslation } from "react-i18next";
+import { Close } from "@mui/icons-material";
 
 const dynamicStyles = {
   user: {
@@ -22,7 +30,14 @@ const dynamicStyles = {
   },
 };
 
-const Messages = ({ messages, pending, selectedPrompt }: any) => {
+const Messages = ({
+  messages,
+  pending,
+  selectedPrompt,
+  errorAlert,
+  setErrorAlert,
+}: any) => {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -78,6 +93,35 @@ const Messages = ({ messages, pending, selectedPrompt }: any) => {
           </div>
         );
       })}
+      <Collapse
+        in={errorAlert !== null}
+        sx={{
+          position: "fixed",
+          bottom: "8rem",
+          width: {
+            xs: "80%",
+            sm: "80%",
+            md: "50%",
+            lg: "50%",
+            xl: "50%",
+          },
+        }}
+      >
+        <Alert
+          severity="error"
+          variant="filled"
+          action={
+            <Close
+              onClick={() => setErrorAlert(null)}
+              sx={{
+                color: "#fff",
+              }}
+            />
+          }
+        >
+          {errorAlert}
+        </Alert>
+      </Collapse>
       {pending && (
         <div className={styles.spinner}>
           <Loader />

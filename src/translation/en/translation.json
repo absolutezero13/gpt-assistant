@@ -30,5 +30,10 @@
   "style": "Style",
   "additional": "Additional Details",
   "enterMessage": "Enter your message",
-  "hide": "Hide"
+  "hide": "Hide",
+  "alerts": {
+    "noToken": "You have no tokens.",
+    "login": "Please login to continue.",
+    "generic": "Something went wrong. Please try again later."
+  }
 }
