@@ -11,7 +11,7 @@
   background-size: 150px 150px;
   background-position: center;
   overflow-x: hidden;
-  max-width: min(calc(50% + 310px), 95%);
+  width: min(calc(50% + 310px), 95%);
   align-self: center;
 }
 
@@ -48,7 +48,7 @@
   padding: 10px;
   border-radius: 10px;
   margin-top: 2rem;
-  max-width: min(calc(50% + 310px), 95%);
+  width: min(calc(50% + 310px), 95%);
 }
 
 @media screen and (max-width: 768px) {
