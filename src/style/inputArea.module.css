@@ -1,6 +1,6 @@
 .wrapper {
   position: relative;
-  width: calc(50% + 310px);
+  width: min(calc(50% + 310px), 95%);
   align-self: center;
   display: flex;
 }
