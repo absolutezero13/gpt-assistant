@@ -5,9 +5,18 @@
   overflow-y: scroll;
 }
 
+.list::-webkit-scrollbar-track {
+  visibility: hidden;
+}
+
+.list::-webkit-scrollbar {
+  visibility: hidden;
+  width: 0px;
+}
+.list::-webkit-scrollbar-thumb {
+  visibility: hidden;
+}
+
 .button {
-  /* padding: 10px; */
   cursor: pointer;
-  /* width: 10rem; */
-  /* justify-content: flex-start; */
 }
