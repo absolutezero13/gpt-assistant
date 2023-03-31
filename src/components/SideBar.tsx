@@ -30,10 +30,16 @@ const APPBAR_HEIGHT = 80;
 interface SideBarProps {
   selectedPrompt: Prompt;
   setSelectedPrompt: any;
+  setLogoutAlert: any;
   user: CustomUser | null;
 }
 
-const SideBar = ({ selectedPrompt, setSelectedPrompt, user }: SideBarProps) => {
+const SideBar = ({
+  selectedPrompt,
+  setSelectedPrompt,
+  user,
+  setLogoutAlert,
+}: SideBarProps) => {
   const { width, height } = useWindowSize();
   const isSmall = width <= breakPoints.sm;
   const [showDrawer, setShowDrawer] = useState(false);
@@ -145,7 +151,11 @@ const SideBar = ({ selectedPrompt, setSelectedPrompt, user }: SideBarProps) => {
                   {user.displayName}
                 </Typography>
               </Grid>
-              <Button onClick={signOut} variant="contained" color="primary">
+              <Button
+                onClick={() => setLogoutAlert(true)}
+                variant="contained"
+                color="primary"
+              >
                 <Logout />
                 <Typography ml={1}>Logout</Typography>
               </Button>

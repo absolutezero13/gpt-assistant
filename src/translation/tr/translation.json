@@ -37,5 +37,8 @@
     "noToken": "Tokeniniz kalmadı. İlker'den isteyin.",
     "login": "Lütfen giriş yapın.",
     "generic": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin."
-  }
+  },
+  "logoutTitle": "Gerçekten çıkmak istiyor musun?",
+  "yes": "Evet",
+  "no": "Hayır"
 }

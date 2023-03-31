@@ -26,6 +26,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { firebaseConfig } from "./utils/firebaseConfig";
+import { AlertDialog } from "./components/AlertDialog";
+import { signOut } from "./providers/googleAuth";
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -40,6 +42,7 @@ function App() {
   const [tokens, setTokens] = useState<number | null>(null);
   const [user, setUser] = useState<CustomUser | null>(null);
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
+  const [logoutAlert, setLogoutAlert] = useState(false);
   const [appLoading, setAppLoading] = useState(true);
 
   useEffect(() => {
@@ -152,6 +155,7 @@ function App() {
         user={user}
         selectedPrompt={selectedPrompt}
         setSelectedPrompt={setSelectedPrompt}
+        setLogoutAlert={setLogoutAlert}
       />
       <Grid
         sx={{
@@ -184,6 +188,13 @@ function App() {
           pending={pending}
         />
       </Grid>
+
+      <AlertDialog
+        open={logoutAlert}
+        setOpen={setLogoutAlert}
+        title={t("logoutTitle")}
+        onConfirm={signOut}
+      />
       {tokens && (
         <Grid className={styles.tokens}>
           <p>TOKENS: {tokens} </p>

@@ -35,5 +35,8 @@
     "noToken": "You have no tokens.",
     "login": "Please login to continue.",
     "generic": "Something went wrong. Please try again later."
-  }
+  },
+  "logoutTitle": "Do you want to logout?",
+  "yes": "Yes",
+  "no": "No"
 }
