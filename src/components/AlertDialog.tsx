@@ -10,7 +10,7 @@ interface AlertDialogProps {
   open: boolean;
   setOpen: any;
   title: string;
-  content: string;
+  content?: string;
   onConfirm: any;
 }
 
@@ -40,11 +40,13 @@ export function AlertDialog({
       <DialogTitle id="alert-dialog-title" color="white">
         {title}
       </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {content}
-        </DialogContentText>
-      </DialogContent>
+      {content && (
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {content}
+          </DialogContentText>
+        </DialogContent>
+      )}
       <DialogActions>
         <Button
           onClick={() => {
