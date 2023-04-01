@@ -5,7 +5,7 @@ import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import styles from "../style/promptOptions.module.css";
 
-const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
+const PromptOptions = ({ setSelectedPrompt, selectedPrompt, user }: any) => {
   const { t } = useTranslation();
   const prompts = usePrompts();
   const { width } = useWindowSize();
@@ -15,7 +15,10 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
   return (
     <div className={styles.list}>
       {prompts
-        .filter((p) => !p.adminOnly)
+        .filter((p) => {
+          if (user?.role === "admin") return true;
+          return !p.adminOnly;
+        })
         .map((prompt) => {
           const Icon = prompt.icon;
           return (

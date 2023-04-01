@@ -4,8 +4,6 @@ import { ChatCompletion, TokenResponse } from "./types";
 export const createChatCompletion = async (
   content: string
 ): Promise<ChatCompletion | any> => {
-  console.log("content", content);
-
   try {
     const res = await fetch(ENDPOINT, {
       method: "POST",
