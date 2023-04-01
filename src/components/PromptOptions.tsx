@@ -19,7 +19,11 @@ const PromptOptions = ({ setSelectedPrompt, selectedPrompt }: any) => {
         .map((prompt) => {
           const Icon = prompt.icon;
           return (
-            <Tooltip title={t(prompt.explanation)} placement="right">
+            <Tooltip
+              key={prompt.id.toString()}
+              title={t(prompt.explanation)}
+              placement="right"
+            >
               <Button
                 variant={
                   selectedPrompt.id === prompt.id ? "contained" : "outlined"

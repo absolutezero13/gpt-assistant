@@ -45,6 +45,8 @@ function App() {
   const [logoutAlert, setLogoutAlert] = useState(false);
   const [appLoading, setAppLoading] = useState(true);
 
+  console.log("TESTING ", import.meta.env.VITE_TEST);
+
   useEffect(() => {
     const auth = getAuth();
     getTokens().then((res) => {

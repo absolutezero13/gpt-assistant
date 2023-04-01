@@ -35,6 +35,7 @@ const LanguageSelection = () => {
   return (
     <Select
       displayEmpty
+      defaultValue=""
       className={classes.select}
       value={i18n.language.toUpperCase()}
       sx={{
