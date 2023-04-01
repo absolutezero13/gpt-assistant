@@ -87,7 +87,7 @@ function App() {
     }
 
     try {
-      if (tokens! <= 0) {
+      if (tokens! <= 0 && !user?.apiKey) {
         setErrorAlert(t("alerts.noToken"));
         return;
       }
