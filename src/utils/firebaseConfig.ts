@@ -1,6 +1,5 @@
 export const firebaseConfig = {
-  //@ts-ignore
-  apiKey: import.meta.env.VITE_FB_API_KEY,
+  apiKey: "AIzaSyDVFWzJrFXvzu7962RLpGso5zpUeldNWrU",
   authDomain: "gpt-assistant-19b00.firebaseapp.com",
   projectId: "gpt-assistant-19b00",
   storageBucket: "gpt-assistant-19b00.appspot.com",
