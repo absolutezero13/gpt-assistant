@@ -128,7 +128,7 @@ function App() {
         return;
       }
 
-      const tokenResp = await updateTokens(res.usage.total_tokens);
+      const tokenResp = await getTokens();
       setTokens(tokenResp.tokenLimit - tokenResp.tokensUsed);
 
       const assistantMessage = {
