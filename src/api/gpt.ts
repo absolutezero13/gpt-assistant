@@ -1,14 +1,16 @@
 import { ENDPOINT } from "./contants";
-import { ChatCompletion, TokenResponse } from "./types";
+import { ChatCompletion, CustomUser, TokenResponse } from "./types";
 
 export const createChatCompletion = async (
-  content: string
+  content: string,
+  user: CustomUser
 ): Promise<ChatCompletion | any> => {
   try {
     const res = await fetch(ENDPOINT, {
       method: "POST",
       body: JSON.stringify({
         content,
+        user,
       }),
       headers: {
         "Content-Type": "application/json",

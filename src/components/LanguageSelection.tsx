@@ -35,7 +35,6 @@ const LanguageSelection = () => {
   return (
     <Select
       displayEmpty
-      defaultValue=""
       className={classes.select}
       value={i18n.language.toUpperCase()}
       sx={{
@@ -43,8 +42,9 @@ const LanguageSelection = () => {
         zIndex: 999,
         marginTop: "0.5rem",
         right: "2rem",
-        top: "1rem",
-        width: "7rem",
+        top: "2rem",
+        height: "2rem",
+        width: "6rem",
         color: "#fff",
         ".MuiOutlinedInput-notchedOutline": {
           borderColor: "#fff",

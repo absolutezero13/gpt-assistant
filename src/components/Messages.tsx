@@ -15,7 +15,8 @@ import { Message } from "../api/types";
 import Loader from "./Loader";
 import LanguageSelection from "./LanguageSelection";
 import { useTranslation } from "react-i18next";
-import { Close } from "@mui/icons-material";
+import { Close, Settings } from "@mui/icons-material";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 const dynamicStyles = {
   user: {
@@ -37,6 +38,7 @@ const Messages = ({
   errorAlert,
   setErrorAlert,
 }: any) => {
+  const { width } = useWindowSize();
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -49,8 +51,10 @@ const Messages = ({
     }, 100);
   }, [messages]);
 
+  const isSmall = width <= 768;
+
   return (
-    <Grid ref={ref} mt={3} mb={3} className={styles.container}>
+    <Grid ref={ref} mt={isSmall ? 10 : 0} mb={0} className={styles.container}>
       <LanguageSelection />
       {messages.map((item: Message) => {
         return (
@@ -70,8 +74,8 @@ const Messages = ({
               <Typography
                 sx={{
                   color: dynamicStyles[item.role].color,
+                  fontSize: isSmall ? "0.9rem" : "1.1rem",
                 }}
-                variant="body1"
               >
                 <span className={styles.icon}>
                   {item.role === "user" ? (

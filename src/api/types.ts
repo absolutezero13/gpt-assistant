@@ -38,4 +38,5 @@ export interface CustomUser {
   messageHistory: Message[];
   uid: string;
   role: "user" | "assistant";
+  apiKey?: string;
 }

@@ -28,6 +28,7 @@ import {
 import { firebaseConfig } from "./utils/firebaseConfig";
 import { AlertDialog } from "./components/AlertDialog";
 import { signOut } from "./providers/googleAuth";
+import { Settings } from "@mui/icons-material";
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -119,7 +120,7 @@ function App() {
         selectedPrompt.text
       )}${conversationHistory}\n-${text}`;
 
-      const res = await createChatCompletion(prompt);
+      const res = await createChatCompletion(prompt, user);
 
       if (res?.status === 402) {
         setErrorAlert(t("alerts.noToken"));
