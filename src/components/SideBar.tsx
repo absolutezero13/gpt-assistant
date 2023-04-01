@@ -130,6 +130,7 @@ const SideBar = ({
           <PromptOptions
             setSelectedPrompt={setSelectedPrompt}
             selectedPrompt={selectedPrompt}
+            user={user}
           />
         </Drawer>
       ) : (
