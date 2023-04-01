@@ -39,4 +39,8 @@ export interface CustomUser {
   uid: string;
   role: "user" | "assistant";
   apiKey?: string;
+  settings?: {
+    model: string;
+    craziness: number;
+  };
 }

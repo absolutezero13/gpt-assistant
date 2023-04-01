@@ -127,9 +127,9 @@ const Messages = ({
         </Alert>
       </Collapse>
       {pending && (
-        <div className={styles.spinner}>
+        <Grid className={styles.spinner}>
           <Loader />
-        </div>
+        </Grid>
       )}
     </Grid>
   );

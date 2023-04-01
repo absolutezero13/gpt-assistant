@@ -14,11 +14,12 @@ import { PromptOptions } from "./PromptOptions";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import styled from "@emotion/styled";
-import { Google, Logout } from "@mui/icons-material";
+import { Google, Logout, Settings } from "@mui/icons-material";
 import { signInWithgoogle, signOut } from "../providers/googleAuth";
 import { Prompt } from "../hooks/usePrompts";
 import styles from "../style/sideBar.module.css";
 import { CustomUser } from "../api/types";
+import { useTranslation } from "react-i18next";
 
 const StyledGrid = styled(Stack)(({ isSmall }: any) => ({
   width: isSmall ? undefined : 240,
@@ -32,6 +33,7 @@ interface SideBarProps {
   setSelectedPrompt: any;
   setLogoutAlert: any;
   user: CustomUser | null;
+  setSettingsOpen: any;
 }
 
 const SideBar = ({
@@ -39,12 +41,14 @@ const SideBar = ({
   setSelectedPrompt,
   user,
   setLogoutAlert,
+  setSettingsOpen,
 }: SideBarProps) => {
+  const { t } = useTranslation();
   const { width, height } = useWindowSize();
-  const isSmall = width <= breakPoints.sm;
   const [showDrawer, setShowDrawer] = useState(false);
 
   const handleDrawerToggle = () => setShowDrawer(!showDrawer);
+  const isSmall = width <= breakPoints.sm;
 
   return (
     <StyledGrid>
@@ -69,7 +73,7 @@ const SideBar = ({
           </IconButton>
           {isSmall &&
             (user ? (
-              <>
+              <Grid mt={1} sx={{ display: "flex", alignItems: "center" }}>
                 <img
                   src={user.photoURL as string}
                   alt="user"
@@ -82,7 +86,15 @@ const SideBar = ({
                 <Button onClick={signOut} variant="contained">
                   <Logout />
                 </Button>
-              </>
+                <Button
+                  sx={{ ml: 1 }}
+                  onClick={() => setSettingsOpen(true)}
+                  variant="contained"
+                  color="primary"
+                >
+                  <Settings />
+                </Button>
+              </Grid>
             ) : (
               <Button
                 onClick={signInWithgoogle}
@@ -94,9 +106,11 @@ const SideBar = ({
               </Button>
             ))}
           {!isSmall && (
-            <Typography color="#fff" variant="h6" mt={2} ml={isSmall ? 0 : 3}>
-              Pick an Assistant
-            </Typography>
+            <Grid>
+              <Typography color="#fff" variant="h6" mt={1} ml={isSmall ? 0 : 3}>
+                Pick an Assistant
+              </Typography>
+            </Grid>
           )}
         </Toolbar>
       </AppBar>
@@ -152,6 +166,15 @@ const SideBar = ({
                 </Typography>
               </Grid>
               <Button
+                onClick={() => setSettingsOpen(true)}
+                variant="contained"
+                color="primary"
+              >
+                <Settings />
+                <Typography ml={1}>{t("settings.title")}</Typography>
+              </Button>
+              <Button
+                sx={{ mt: 1 }}
                 onClick={() => setLogoutAlert(true)}
                 variant="contained"
                 color="primary"

@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-const CssTextField = withStyles({
+export const CssTextField = withStyles({
   root: {
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
@@ -74,6 +74,7 @@ const InputArea = ({
                       label={t(feature.key)}
                       value={feature.value}
                       variant="outlined"
+                      autoFocus
                       InputLabelProps={{
                         style: { color: "#fff" },
                       }}

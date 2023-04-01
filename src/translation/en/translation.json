@@ -34,9 +34,20 @@
   "alerts": {
     "noToken": "You have no tokens.",
     "login": "Please login to continue.",
-    "generic": "Something went wrong. Please try again later."
+    "generic": "Something went wrong. Please try again later.",
+    "invalidApiKey": "Invalid API Key"
   },
   "logoutTitle": "Do you want to logout?",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "settings": {
+    "title": "Settings",
+    "craziness": "Craziness",
+    "apiKey": "You can use your own openAI api key to avoid token limit.",
+    "crazinessTooltip": "How crazy the model will be. It will behave more random if it is higher.",
+    "model": "Model",
+    "save": "Save",
+    "cancel": "Cancel",
+    "removeKey": "Remove"
+  }
 }

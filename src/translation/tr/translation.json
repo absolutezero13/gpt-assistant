@@ -36,9 +36,20 @@
   "alerts": {
     "noToken": "Tokeniniz kalmadı. İlker'den isteyin.",
     "login": "Lütfen giriş yapın.",
-    "generic": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin."
+    "generic": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
+    "invalidApiKey": "Geçersiz API Key."
   },
   "logoutTitle": "Gerçekten çıkmak istiyor musun?",
   "yes": "Evet",
-  "no": "Hayır"
+  "no": "Hayır",
+  "settings": {
+    "title": "Ayarlar",
+    "craziness": "Çılgınlık",
+    "apiKey": "Kendi openAI api keyinizi girerek token limitine takılmadan kullanabilirsiniz.",
+    "crazinessTooltip": "Modelin ne kadar çılgın davranacağını belirler. Değer arttıkça rastgele ve anlamsız cevaplar verebilir.",
+    "model": "Model",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "removeKey": "Kaldır"
+  }
 }

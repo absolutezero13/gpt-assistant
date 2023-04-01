@@ -1,22 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createChatCompletion, getTokens, updateTokens } from "./api/gpt";
 import "./App.css";
 import { Messages } from "./components/Messages";
 import { InputArea } from "./components/InputArea";
 import { CustomUser, Message } from "./api/types";
 import { SideBar } from "./components/SideBar";
-import {
-  Alert,
-  Backdrop,
-  CircularProgress,
-  Collapse,
-  Grid,
-} from "@mui/material";
+import { Backdrop, CircularProgress, Grid } from "@mui/material";
 import styles from "./style/general.module.css";
 import { initializeApp } from "firebase/app";
 import usePrompts, { Prompt } from "./hooks/usePrompts";
 import { useTranslation } from "react-i18next";
-import { getAuth, User } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import {
   arrayUnion,
   doc,
@@ -28,7 +22,7 @@ import {
 import { firebaseConfig } from "./utils/firebaseConfig";
 import { AlertDialog } from "./components/AlertDialog";
 import { signOut } from "./providers/googleAuth";
-import { Settings } from "@mui/icons-material";
+import { SettingsDialog } from "./components/SettingsDialog";
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -44,7 +38,9 @@ function App() {
   const [user, setUser] = useState<CustomUser | null>(null);
   const [errorAlert, setErrorAlert] = useState<string | null>(null);
   const [logoutAlert, setLogoutAlert] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [appLoading, setAppLoading] = useState(true);
+  const [userDocRef, setUserDocRef] = useState<any>(null);
 
   useEffect(() => {
     const auth = getAuth();
@@ -56,6 +52,7 @@ function App() {
       setAppLoading(true);
       if (user) {
         const docRef = doc(db, "users", user.uid);
+        setUserDocRef(docRef);
         const _doc = await getDoc(docRef);
         setUser(_doc.data() as CustomUser);
         if (_doc.exists()) {
@@ -122,6 +119,10 @@ function App() {
 
       const res = await createChatCompletion(prompt, user);
 
+      if (res?.error?.code === "invalid_api_key") {
+        setErrorAlert(t("alerts.invalidApiKey"));
+        return;
+      }
       if (res?.status === 402) {
         setErrorAlert(t("alerts.noToken"));
         return;
@@ -157,6 +158,7 @@ function App() {
         selectedPrompt={selectedPrompt}
         setSelectedPrompt={setSelectedPrompt}
         setLogoutAlert={setLogoutAlert}
+        setSettingsOpen={setSettingsOpen}
       />
       <Grid
         sx={{
@@ -189,12 +191,19 @@ function App() {
           pending={pending}
         />
       </Grid>
-
       <AlertDialog
         open={logoutAlert}
         setOpen={setLogoutAlert}
         title={t("logoutTitle")}
         onConfirm={signOut}
+      />
+      <SettingsDialog
+        user={user}
+        open={settingsOpen}
+        setOpen={setSettingsOpen}
+        setUser={setUser}
+        setAppLoading={setAppLoading}
+        userDocRef={userDocRef}
       />
       {tokens && (
         <Grid className={styles.tokens}>
