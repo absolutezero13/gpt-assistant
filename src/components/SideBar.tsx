@@ -102,7 +102,6 @@ const SideBar = ({
                 color="primary"
               >
                 <Google />
-                <Typography ml={1}>Sign in</Typography>
               </Button>
             ))}
           {!isSmall && (
@@ -191,7 +190,7 @@ const SideBar = ({
               color="primary"
             >
               <Google />
-              <Typography ml={1}>Sign in</Typography>
+              <Typography ml={1}>{t("signin")}</Typography>
             </Button>
           )}
           <PromptOptions

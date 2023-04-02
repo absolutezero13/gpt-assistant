@@ -1,16 +1,17 @@
 import { useEffect, useRef } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { Alert, Collapse, Grid, Typography } from "@mui/material";
+import { Alert, Avatar, Collapse, Fab, Grid, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 import { theme } from "../style/theme";
 import styles from "../style/messages.module.css";
-import { Message } from "../api/types";
+import { CustomUser, Message } from "../api/types";
 import Loader from "./Loader";
 import LanguageSelection from "./LanguageSelection";
 import { useTranslation } from "react-i18next";
 import { Close, Settings } from "@mui/icons-material";
 import { useWindowSize } from "../hooks/useWindowSize";
+import { Prompt } from "../data/prompts";
 
 const dynamicStyles = {
   user: {
@@ -25,13 +26,23 @@ const dynamicStyles = {
   },
 };
 
+interface MessagesProps {
+  messages: Message[];
+  pending: boolean;
+  selectedPrompt: Prompt;
+  errorAlert: string | null;
+  setErrorAlert: (error: string | null) => void;
+  user: CustomUser | null;
+}
+
 const Messages = ({
   messages,
   pending,
   selectedPrompt,
   errorAlert,
   setErrorAlert,
-}: any) => {
+  user,
+}: MessagesProps) => {
   const { width } = useWindowSize();
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
@@ -50,47 +61,56 @@ const Messages = ({
   return (
     <Grid ref={ref} mt={isSmall ? 10 : 0} mb={0} className={styles.container}>
       <LanguageSelection />
-      {messages.map((item: Message) => {
-        return (
-          <div
-            key={item?.id || item.content + item.role}
-            className={styles.messageItem}
-            style={{
-              alignItems: dynamicStyles[item.role].alignItems,
-            }}
-          >
+      <Grid position="relative">
+        {messages.map((item: Message) => {
+          return (
             <div
-              className={styles.message}
+              key={item?.id || item.content + item.role}
+              className={styles.messageItem}
               style={{
-                backgroundColor: dynamicStyles[item.role].backgroundColor,
+                alignItems: dynamicStyles[item.role].alignItems,
               }}
             >
-              <Typography
-                sx={{
-                  color: dynamicStyles[item.role].color,
-                  fontSize: isSmall ? "0.9rem" : "1.1rem",
+              <div
+                className={styles.message}
+                style={{
+                  backgroundColor: dynamicStyles[item.role].backgroundColor,
                 }}
               >
-                <span className={styles.icon}>
-                  {item.role === "assistant" ? (
-                    <PsychologyAltIcon />
-                  ) : (
-                    <PersonIcon />
-                  )}{" "}
-                </span>
-                {item.content.split("\n").map((item, key) => {
-                  return (
-                    <span key={key}>
-                      {item}
-                      <br />
-                    </span>
-                  );
-                })}
-              </Typography>
+                <Typography
+                  sx={{
+                    color: dynamicStyles[item.role].color,
+                    fontSize: isSmall ? "0.9rem" : "1.1rem",
+                  }}
+                >
+                  <span className={styles.icon}>
+                    {item.role === "assistant" ? (
+                      <PsychologyAltIcon />
+                    ) : (
+                      <img
+                        style={{
+                          width: "1.5rem",
+                          height: "1.5rem",
+                          borderRadius: "50%",
+                        }}
+                        src={user?.photoURL}
+                      />
+                    )}{" "}
+                  </span>
+                  {item.content.split("\n").map((item, key) => {
+                    return (
+                      <span key={key}>
+                        {item}
+                        <br />
+                      </span>
+                    );
+                  })}
+                </Typography>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </Grid>
       <Collapse
         in={errorAlert !== null}
         sx={{

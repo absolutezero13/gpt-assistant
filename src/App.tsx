@@ -24,12 +24,15 @@ import { AlertDialog } from "./components/AlertDialog";
 import { signOut } from "./providers/googleAuth";
 import { SettingsDialog } from "./components/SettingsDialog";
 import { v4 as uuid } from "uuid";
+//@ts-ignore
+import { useSpeechSynthesis } from "react-speech-kit";
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
 
 function App() {
   const { t } = useTranslation();
+  const { speak } = useSpeechSynthesis();
   const [input, setInput] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messagesHistory, setMessagesHistory] = useState<Message[]>([]);
@@ -41,6 +44,10 @@ function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [appLoading, setAppLoading] = useState(true);
   const [userDocRef, setUserDocRef] = useState<any>(null);
+
+  let voiceOptions = window.speechSynthesis.getVoices();
+
+  console.log("voiceOptions", voiceOptions);
 
   useEffect(() => {
     const auth = getAuth();
@@ -138,7 +145,6 @@ function App() {
         promptId: selectedPrompt.id,
         role: "assistant",
       } as Message;
-      console.log("SENDING", assistantMessage);
       await updateDoc(userRef, {
         messageHistory: arrayUnion(assistantMessage),
       });
@@ -187,6 +193,7 @@ function App() {
           selectedPrompt={selectedPrompt}
           errorAlert={errorAlert}
           setErrorAlert={setErrorAlert}
+          user={user}
         />
         <InputArea
           sendMessage={sendMessage}

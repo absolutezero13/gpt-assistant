@@ -73,7 +73,7 @@ const prompts: Prompt[] = [
     explanation: "akpExplanation",
     icon: Man3Icon,
     id: 6,
-    shouldRememberConversation: true,
+    shouldRememberConversation: false,
     adminOnly: true,
   },
 ];

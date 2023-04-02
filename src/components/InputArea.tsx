@@ -1,4 +1,4 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Fab, Grid, TextField, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import styles from "../style/inputArea.module.css";
 import Microphone from "./Microphone";
@@ -10,6 +10,7 @@ import { withStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { KeyboardVoice } from "@mui/icons-material";
 
 export const CssTextField = withStyles({
   root: {
@@ -74,7 +75,6 @@ const InputArea = ({
                       label={t(feature.key)}
                       value={feature.value}
                       variant="outlined"
-                      autoFocus
                       InputLabelProps={{
                         style: { color: "#fff" },
                       }}
@@ -147,12 +147,13 @@ const InputArea = ({
             color="secondary"
             onClick={() => sendMessage(input)}
             className={styles.button}
+            sx={{ borderRadius: 0 }}
           >
             <SendIcon />
           </Button>
+          <Microphone isSmall={width <= breakPoints.sm} setInput={setInput} />
         </Grid>
       )}
-      {/* <Microphone setInput={setInput} /> */}
     </>
   );
 };

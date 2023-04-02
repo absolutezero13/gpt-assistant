@@ -33,6 +33,7 @@
   "additional": "Ek Detaylar",
   "enterMessage": "Bir mesaj yaz",
   "hide": "Gizle",
+  "signin": "Giriş yap",
   "alerts": {
     "noToken": "Tokeniniz kalmadı. İlker'den isteyin.",
     "login": "Lütfen giriş yapın.",
