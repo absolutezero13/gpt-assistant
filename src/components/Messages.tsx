@@ -53,7 +53,7 @@ const Messages = ({
       {messages.map((item: Message) => {
         return (
           <div
-            key={item.content + item.role}
+            key={item?.id || item.content + item.role}
             className={styles.messageItem}
             style={{
               alignItems: dynamicStyles[item.role].alignItems,

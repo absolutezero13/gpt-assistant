@@ -21,6 +21,7 @@ export interface ChatCompletion {
 }
 
 export interface Message {
+  id: string;
   role: "user" | "assistant";
   content: string;
   promptId: number;

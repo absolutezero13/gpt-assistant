@@ -23,6 +23,7 @@ import { firebaseConfig } from "./utils/firebaseConfig";
 import { AlertDialog } from "./components/AlertDialog";
 import { signOut } from "./providers/googleAuth";
 import { SettingsDialog } from "./components/SettingsDialog";
+import { v4 as uuid } from "uuid";
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -92,10 +93,11 @@ function App() {
       }
       const userRef = doc(db, "users", user?.uid as string);
       const userMessage = {
+        id: uuid(),
         content: text,
         promptId: selectedPrompt.id,
         role: "user",
-      };
+      } as Message;
       await updateDoc(userRef, {
         messageHistory: arrayUnion(userMessage),
       });
@@ -131,11 +133,12 @@ function App() {
       setTokens(tokenResp.tokenLimit - tokenResp.tokensUsed);
 
       const assistantMessage = {
+        id: uuid(),
         content: res.choices[0].message.content,
         promptId: selectedPrompt.id,
         role: "assistant",
-      };
-
+      } as Message;
+      console.log("SENDING", assistantMessage);
       await updateDoc(userRef, {
         messageHistory: arrayUnion(assistantMessage),
       });

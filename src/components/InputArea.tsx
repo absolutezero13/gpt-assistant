@@ -52,21 +52,21 @@ const InputArea = ({
     <>
       {selectedPrompt.id === STYLIST_ID ? (
         <Grid
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-          }}
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          flexWrap="wrap"
+          pl={2}
+          pr={2}
         >
           {styleInputsVisible
             ? psyhicalFeatures.map((feature) => {
                 return (
                   <Grid
                     key={feature.key}
+                    mt={1}
+                    ml={0.5}
                     sx={{
-                      marginTop: "1rem",
-                      marginLeft: "0.5rem",
                       maxWidth: width <= breakPoints.sm ? "7rem" : undefined,
                     }}
                   >
@@ -103,8 +103,8 @@ const InputArea = ({
             onClick={() => sendMessage(styleInput)}
             className={styles.button}
             sx={{
-              marginLeft: "auto",
-              marginTop: "1rem",
+              ml: "auto",
+              mt: "1rem",
               width: "7rem",
             }}
           >
@@ -117,8 +117,8 @@ const InputArea = ({
             onClick={() => setStyleInputsVisible((prev) => !prev)}
             className={styles.button}
             sx={{
-              marginLeft: "1rem",
-              marginTop: "1rem",
+              ml: "auto",
+              mt: "1rem",
               width: "7rem",
             }}
           >
