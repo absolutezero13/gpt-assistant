@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { createChatCompletion, getTokens, updateTokens } from "./api/gpt";
+import { useEffect, useMemo, useState } from "react";
+import { createChatCompletion, getTokens } from "./api/gpt";
 import "./App.css";
 import { Messages } from "./components/Messages";
 import { InputArea } from "./components/InputArea";
@@ -8,7 +8,7 @@ import { SideBar } from "./components/SideBar";
 import { Backdrop, CircularProgress, Grid } from "@mui/material";
 import styles from "./style/general.module.css";
 import { initializeApp } from "firebase/app";
-import usePrompts, { Prompt } from "./hooks/usePrompts";
+import { Prompt, prompts } from "./data/prompts";
 import { useTranslation } from "react-i18next";
 import { getAuth } from "firebase/auth";
 import {
@@ -29,7 +29,6 @@ const db = getFirestore();
 
 function App() {
   const { t } = useTranslation();
-  const prompts = usePrompts();
   const [input, setInput] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messagesHistory, setMessagesHistory] = useState<Message[]>([]);
@@ -97,7 +96,7 @@ function App() {
         promptId: selectedPrompt.id,
         role: "user",
       };
-      updateDoc(userRef, {
+      await updateDoc(userRef, {
         messageHistory: arrayUnion(userMessage),
       });
       setPending(true);
@@ -107,7 +106,7 @@ function App() {
       let conversationHistory = "";
 
       if (selectedPrompt.shouldRememberConversation) {
-        conversationHistory += getMessagesHistory()
+        conversationHistory += filteredMessages
           .slice(-5)
           .map((message) => `-${message.content}`)
           .join("\n");
@@ -137,7 +136,7 @@ function App() {
         role: "assistant",
       };
 
-      updateDoc(userRef, {
+      await updateDoc(userRef, {
         messageHistory: arrayUnion(assistantMessage),
       });
       setMessagesHistory((prev) => [...prev, assistantMessage as Message]);
@@ -148,9 +147,12 @@ function App() {
       setPending(false);
     }
   };
-  const getMessagesHistory = (): Message[] => {
-    return messagesHistory.filter((el) => el.promptId === selectedPrompt.id);
-  };
+
+  const filteredMessages = useMemo(
+    () => messagesHistory.filter((el) => el.promptId === selectedPrompt.id),
+    [selectedPrompt, messagesHistory]
+  );
+
   return (
     <div className="App">
       <SideBar
@@ -177,7 +179,7 @@ function App() {
           <CircularProgress color="inherit" />
         </Backdrop>
         <Messages
-          messages={getMessagesHistory()}
+          messages={filteredMessages}
           pending={pending}
           selectedPrompt={selectedPrompt}
           errorAlert={errorAlert}

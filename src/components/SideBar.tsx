@@ -16,7 +16,7 @@ import { breakPoints } from "../style/breakPoints";
 import styled from "@emotion/styled";
 import { Google, Logout, Settings } from "@mui/icons-material";
 import { signInWithgoogle, signOut } from "../providers/googleAuth";
-import { Prompt } from "../hooks/usePrompts";
+import { Prompt } from "../data/prompts";
 import styles from "../style/sideBar.module.css";
 import { CustomUser } from "../api/types";
 import { useTranslation } from "react-i18next";

@@ -37,7 +37,7 @@ export interface CustomUser {
   photoURL: string;
   messageHistory: Message[];
   uid: string;
-  role: "user" | "assistant";
+  role: "user" | "assistant" | "admin";
   apiKey?: string;
   settings?: {
     model: string;

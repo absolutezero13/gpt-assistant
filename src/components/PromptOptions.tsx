@@ -1,14 +1,24 @@
 import { Button, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import usePrompts from "../hooks/usePrompts";
+import { CustomUser } from "../api/types";
+import { Prompt, prompts } from "../data/prompts";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import styles from "../style/promptOptions.module.css";
 
-const PromptOptions = ({ setSelectedPrompt, selectedPrompt, user }: any) => {
+interface PromptOptionsProps {
+  setSelectedPrompt: any;
+  selectedPrompt: Prompt;
+  user: CustomUser | null;
+}
+
+const PromptOptions = ({
+  setSelectedPrompt,
+  selectedPrompt,
+  user,
+}: PromptOptionsProps) => {
   const { t } = useTranslation();
-  const prompts = usePrompts();
   const { width } = useWindowSize();
 
   const isSmall = width <= breakPoints.sm;

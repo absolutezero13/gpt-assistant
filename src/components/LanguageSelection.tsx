@@ -36,7 +36,7 @@ const LanguageSelection = () => {
     <Select
       displayEmpty
       className={classes.select}
-      value={i18n.language.toUpperCase()}
+      value={i18n.language}
       sx={{
         position: "absolute",
         zIndex: 999,
@@ -71,12 +71,7 @@ const LanguageSelection = () => {
       onChange={onLanguageChange}
       renderValue={(value: string) => {
         return (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <Box display="flex" alignItems="center">
             <img
               src={
                 availabeLanguages.find((lang) => lang.code === i18n.language)!
@@ -94,7 +89,7 @@ const LanguageSelection = () => {
         <MenuItem key={lang.code} value={lang.code} onClick={onLanguageChange}>
           {lang.name}
           {lang.code === i18n.language && (
-            <CheckCircleOutline sx={{ color: "green", ml: 2 }} />
+            <CheckCircleOutline color="success" sx={{ ml: 2 }} />
           )}
         </MenuItem>
       ))}

@@ -1,12 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-  Alert,
-  CircularProgress,
-  Collapse,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Alert, Collapse, Grid, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
 import { theme } from "../style/theme";
@@ -78,10 +72,10 @@ const Messages = ({
                 }}
               >
                 <span className={styles.icon}>
-                  {item.role === "user" ? (
-                    <PersonIcon />
-                  ) : (
+                  {item.role === "assistant" ? (
                     <PsychologyAltIcon />
+                  ) : (
+                    <PersonIcon />
                   )}{" "}
                 </span>
                 {item.content.split("\n").map((item, key) => {
