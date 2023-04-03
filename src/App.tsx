@@ -5,7 +5,7 @@ import { Messages } from "./components/Messages";
 import { InputArea } from "./components/InputArea";
 import { CustomUser, Message } from "./api/types";
 import { SideBar } from "./components/SideBar";
-import { Backdrop, CircularProgress, Grid } from "@mui/material";
+import { Backdrop, Button, CircularProgress, Grid } from "@mui/material";
 import styles from "./style/general.module.css";
 import { initializeApp } from "firebase/app";
 import { Prompt, prompts } from "./data/prompts";
@@ -32,7 +32,9 @@ const db = getFirestore();
 
 function App() {
   const { t } = useTranslation();
-  const { speak } = useSpeechSynthesis();
+  const { speak, cancel } = useSpeechSynthesis({
+    onEnd: () => console.log("SPEEEEECH EEEEEEEND"),
+  });
   const [input, setInput] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messagesHistory, setMessagesHistory] = useState<Message[]>([]);
@@ -45,10 +47,7 @@ function App() {
   const [appLoading, setAppLoading] = useState(true);
   const [userDocRef, setUserDocRef] = useState<any>(null);
 
-  let voiceOptions = window.speechSynthesis.getVoices();
-
-  console.log("voiceOptions", voiceOptions);
-
+  console.log("user", user);
   useEffect(() => {
     const auth = getAuth();
     getTokens().then((res) => {
@@ -121,7 +120,9 @@ function App() {
           .join("\n");
       }
 
-      const prompt = `${t(
+      const prePrompt = `Following prompt coming from a user named ${user?.displayName}. Answer using their first name.`;
+
+      const prompt = `${prePrompt}\n${t(
         selectedPrompt.text
       )}${conversationHistory}\n-${text}`;
 
@@ -149,6 +150,17 @@ function App() {
         messageHistory: arrayUnion(assistantMessage),
       });
       setMessagesHistory((prev) => [...prev, assistantMessage as Message]);
+
+      if (user?.settings?.voiceAnswer) {
+        const voiceOptions = window.speechSynthesis.getVoices();
+        cancel();
+        speak({
+          text: assistantMessage.content,
+          voice: voiceOptions.find(
+            (voice) => voice.name === user?.settings?.voiceChoice
+          ),
+        });
+      }
     } catch (error: any) {
       console.log(error);
       setErrorAlert(t("alerts.generic"));

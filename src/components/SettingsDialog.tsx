@@ -14,11 +14,17 @@ import {
   Slider,
   Tooltip,
   Typography,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
 } from "@mui/material";
 import { DocumentReference, updateDoc } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import { CustomUser } from "../api/types";
 import { CssTextField } from "./InputArea";
+import { StyledSelect } from "./StyledSelect";
+import { pink } from "@mui/material/colors";
+import { theme } from "../style/theme";
 
 interface SettingsProps {
   open: boolean;
@@ -55,7 +61,11 @@ const SettingsDialog = ({
     apiKey: "",
     craziness: 0,
     gptModel: gptModels[0].value,
+    voiceAnswer: false,
+    voiceChoice: "",
   });
+
+  let voiceOptions = window.speechSynthesis.getVoices();
 
   useEffect(() => {
     if (user) {
@@ -63,6 +73,8 @@ const SettingsDialog = ({
         apiKey: user.apiKey,
         craziness: user.settings?.craziness,
         gptModel: user.settings?.model,
+        voiceAnswer: user.settings?.voiceAnswer || false,
+        voiceChoice: user.settings?.voiceChoice || voiceOptions[0]?.name,
       });
     }
   }, [user]);
@@ -80,6 +92,8 @@ const SettingsDialog = ({
         settings: {
           craziness: userInfo.craziness,
           model: userInfo.gptModel,
+          voiceAnswer: userInfo.voiceAnswer,
+          voiceChoice: userInfo.voiceChoice,
         },
       });
 
@@ -89,6 +103,8 @@ const SettingsDialog = ({
         settings: {
           craziness: userInfo.craziness,
           model: userInfo.gptModel,
+          voiceAnswer: userInfo.voiceAnswer,
+          voiceChoice: userInfo.voiceChoice,
         },
       });
     } catch (error) {
@@ -132,43 +148,19 @@ const SettingsDialog = ({
         <Grid mt={2} mb={1} flexDirection="row" display="flex">
           <Typography color="#fff">{t("settings.model")}</Typography>
         </Grid>
-        <Select
+        <StyledSelect
           value={userInfo?.gptModel || gptModels[0].value}
           onChange={(e) =>
             setUserInfo({ ...userInfo, gptModel: e.target.value })
           }
           fullWidth
-          sx={{
-            color: "#fff",
-            ".MuiOutlinedInput-notchedOutline": {
-              borderColor: "#fff",
-            },
-            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#fff",
-            },
-            "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#fff",
-            },
-            ".MuiSvgIcon-root ": {
-              fill: "white !important",
-            },
-          }}
-          inputProps={{
-            MenuProps: {
-              MenuListProps: {
-                sx: {
-                  backgroundColor: "#fff",
-                },
-              },
-            },
-          }}
         >
           {gptModels.map((model) => (
             <MenuItem key={model.value} value={model.value}>
               {model.label}
             </MenuItem>
           ))}
-        </Select>
+        </StyledSelect>
         <Grid mt={4} mb={1} flexDirection="row" display="flex">
           <Typography color="#fff">{t("settings.craziness")}</Typography>
           <Tooltip title={t("settings.crazinessTooltip")}>
@@ -186,6 +178,44 @@ const SettingsDialog = ({
             setUserInfo({ ...userInfo, craziness: value })
           }
         />
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={userInfo.voiceAnswer}
+                value={userInfo.voiceAnswer}
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, voiceAnswer: e.target.checked })
+                }
+                color="primary"
+                sx={{
+                  color: theme.palette.primary.main,
+                  "&.Mui-checked": {
+                    color: theme.palette.primary.main,
+                  },
+                }}
+              />
+            }
+            label={
+              <Typography color="#fff">{t("settings.voiceAnswer")}</Typography>
+            }
+          />
+          {userInfo.voiceAnswer && (
+            <StyledSelect
+              value={userInfo?.voiceChoice || voiceOptions[0]?.name}
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, voiceChoice: e.target.value })
+              }
+              fullWidth
+            >
+              {voiceOptions.map((voice) => (
+                <MenuItem key={voice?.name} value={voice?.name}>
+                  {voice?.lang} {voice?.name}
+                </MenuItem>
+              ))}
+            </StyledSelect>
+          )}
+        </FormGroup>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>{t("settings.cancel")}</Button>

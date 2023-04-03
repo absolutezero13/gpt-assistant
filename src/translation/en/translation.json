@@ -49,6 +49,7 @@
     "model": "Model",
     "save": "Save",
     "cancel": "Cancel",
-    "removeKey": "Remove"
+    "removeKey": "Remove",
+    "voiceAnswer": "Answer with voice"
   }
 }

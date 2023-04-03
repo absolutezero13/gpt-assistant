@@ -1,10 +1,9 @@
-import { Button, Grid, Skeleton } from "@mui/material";
+import { Button, Skeleton } from "@mui/material";
 import { useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
-import styles from "../style/inputArea.module.css";
 
 const Microphone = ({ setInput, isSmall }: any) => {
   const { transcript, listening, isMicrophoneAvailable, resetTranscript } =

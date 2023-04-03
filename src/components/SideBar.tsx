@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   AppBar,
   Button,
@@ -9,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
 import { PromptOptions } from "./PromptOptions";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
@@ -17,7 +17,6 @@ import styled from "@emotion/styled";
 import { Google, Logout, Settings } from "@mui/icons-material";
 import { signInWithgoogle, signOut } from "../providers/googleAuth";
 import { Prompt } from "../data/prompts";
-import styles from "../style/sideBar.module.css";
 import { CustomUser } from "../api/types";
 import { useTranslation } from "react-i18next";
 
@@ -44,7 +43,7 @@ const SideBar = ({
   setSettingsOpen,
 }: SideBarProps) => {
   const { t } = useTranslation();
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
   const [showDrawer, setShowDrawer] = useState(false);
 
   const handleDrawerToggle = () => setShowDrawer(!showDrawer);
@@ -73,7 +72,7 @@ const SideBar = ({
           </IconButton>
           {isSmall &&
             (user ? (
-              <Grid mt={1} sx={{ display: "flex", alignItems: "center" }}>
+              <Grid mt={1} display="flex" alignItems="center">
                 <img
                   src={user.photoURL as string}
                   alt="user"

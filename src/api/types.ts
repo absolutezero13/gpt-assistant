@@ -32,6 +32,13 @@ export interface TokenResponse {
   key: string;
   tokenLimit: number;
 }
+
+export interface UserSettings {
+  model: string;
+  craziness: number;
+  voiceAnswer: boolean;
+  voiceChoice: string;
+}
 export interface CustomUser {
   email: string;
   displayName: string;
@@ -40,8 +47,5 @@ export interface CustomUser {
   uid: string;
   role: "user" | "assistant" | "admin";
   apiKey?: string;
-  settings?: {
-    model: string;
-    craziness: number;
-  };
+  settings?: UserSettings;
 }

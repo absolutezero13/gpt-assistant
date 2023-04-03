@@ -1,8 +1,5 @@
 .wrapper {
-  position: relative;
   width: min(calc(50% + 310px), 95%);
-  align-self: center;
-  display: flex;
 }
 
 .input {

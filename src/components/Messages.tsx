@@ -44,7 +44,6 @@ const Messages = ({
   user,
 }: MessagesProps) => {
   const { width } = useWindowSize();
-  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -78,10 +77,8 @@ const Messages = ({
                 }}
               >
                 <Typography
-                  sx={{
-                    color: dynamicStyles[item.role].color,
-                    fontSize: isSmall ? "0.9rem" : "1.1rem",
-                  }}
+                  fontSize={isSmall ? "0.9rem" : "1.1rem"}
+                  color={dynamicStyles[item.role].color}
                 >
                   <span className={styles.icon}>
                     {item.role === "assistant" ? (

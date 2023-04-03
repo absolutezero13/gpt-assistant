@@ -1,16 +1,15 @@
-import { Button, Fab, Grid, TextField, Typography } from "@mui/material";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Button, Grid, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import styles from "../style/inputArea.module.css";
 import Microphone from "./Microphone";
-import { useMemo, useState } from "react";
 import { initialPsychicalFeatures } from "../utils/contants";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import { withStyles } from "@material-ui/styles";
-import { useTranslation } from "react-i18next";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { KeyboardVoice } from "@mui/icons-material";
 
 export const CssTextField = withStyles({
   root: {
@@ -126,7 +125,12 @@ const InputArea = ({
           </Button>
         </Grid>
       ) : (
-        <Grid className={styles.wrapper}>
+        <Grid
+          display="flex"
+          alignSelf="center"
+          position="relative"
+          className={styles.wrapper}
+        >
           <TextField
             value={input}
             rows={1}
@@ -142,11 +146,11 @@ const InputArea = ({
             placeholder={t("enterMessage") as string}
           />
           <Button
+            className={styles.button}
             disabled={pending}
             variant="contained"
             color="secondary"
             onClick={() => sendMessage(input)}
-            className={styles.button}
             sx={{ borderRadius: 0 }}
           >
             <SendIcon />

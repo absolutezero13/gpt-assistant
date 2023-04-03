@@ -22,10 +22,6 @@ export function AlertDialog({
   onConfirm,
 }: AlertDialogProps) {
   const { t } = useTranslation();
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setOpen(false);
   };

@@ -51,6 +51,7 @@
     "model": "Model",
     "save": "Kaydet",
     "cancel": "İptal",
-    "removeKey": "Kaldır"
+    "removeKey": "Kaldır",
+    "voiceAnswer": "Sesli cevap"
   }
 }
