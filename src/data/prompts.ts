@@ -25,7 +25,7 @@ const prompts: Prompt[] = [
     explanation: "defaultExplanation",
     icon: SettingsIcon,
     id: 0,
-    shouldRememberConversation: false,
+    shouldRememberConversation: true,
   },
   {
     key: "stylistLabel",
