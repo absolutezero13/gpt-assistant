@@ -16,6 +16,7 @@ export type Prompt = {
   id: number;
   shouldRememberConversation: boolean;
   adminOnly?: boolean;
+  isConversationPrivate?: boolean;
 };
 
 const prompts: Prompt[] = [
