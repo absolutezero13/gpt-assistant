@@ -19,3 +19,28 @@
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+.icon {
+  animation: inout;
+  animation-duration: 4s;
+  animation-iteration-count: 1;
+  /* animation-timing-function: cubic-bezier(0, 1, 0); */
+}
+@keyframes inout {
+  0% {
+    opacity: 0;
+    scale: 0.5;
+    transform: translateX(-50px);
+  }
+  20%,
+  80% {
+    opacity: 1;
+    scale: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    scale: 0.5;
+    transform: translateX(50px);
+  }
+}
