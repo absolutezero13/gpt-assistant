@@ -32,9 +32,7 @@ const db = getFirestore();
 
 function App() {
   const { t } = useTranslation();
-  const { speak, cancel } = useSpeechSynthesis({
-    onEnd: () => console.log("SPEEEEECH EEEEEEEND"),
-  });
+  const { speak, cancel } = useSpeechSynthesis();
   const [input, setInput] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messagesHistory, setMessagesHistory] = useState<Message[]>([]);
@@ -47,7 +45,6 @@ function App() {
   const [appLoading, setAppLoading] = useState(true);
   const [userDocRef, setUserDocRef] = useState<any>(null);
 
-  console.log("user", user);
   useEffect(() => {
     const auth = getAuth();
     getTokens().then((res) => {
@@ -184,14 +181,12 @@ function App() {
         setSettingsOpen={setSettingsOpen}
       />
       <Grid
-        sx={{
-          height: "100dvh",
-          paddingLeft: "0.2rem",
-          paddingRight: "0.2rem",
-          display: "flex",
-          flexDirection: "column",
-          flex: 1,
-        }}
+        pl={0.2}
+        pr={0.2}
+        display="flex"
+        flexDirection="column"
+        flex={1}
+        height="100dvh"
       >
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

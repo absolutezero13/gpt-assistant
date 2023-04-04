@@ -17,6 +17,7 @@ import {
   Checkbox,
   FormGroup,
   FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { DocumentReference, updateDoc } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
@@ -173,7 +174,7 @@ const SettingsDialog = ({
           min={0}
           max={2}
           color="primary"
-          value={userInfo.craziness || 0}
+          value={userInfo.craziness || 1}
           onChange={(_, value) =>
             setUserInfo({ ...userInfo, craziness: value })
           }
@@ -181,7 +182,7 @@ const SettingsDialog = ({
         <FormGroup>
           <FormControlLabel
             control={
-              <Checkbox
+              <Switch
                 checked={userInfo.voiceAnswer}
                 value={userInfo.voiceAnswer}
                 onChange={(e) =>

@@ -76,6 +76,14 @@ const prompts: Prompt[] = [
     shouldRememberConversation: false,
     adminOnly: true,
   },
+  {
+    key: "angryLabel",
+    text: "angryPrompt",
+    explanation: "angryExplanation",
+    icon: Man3Icon,
+    id: 7,
+    shouldRememberConversation: true,
+  },
 ];
 
 export { prompts };
