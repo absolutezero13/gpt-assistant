@@ -13,13 +13,16 @@ interface Props {
 }
 
 const InputAreaSendButtonIcon = ({ assistantIcon }: Props) => {
-  const PromptIcon = assistantIcon;
   const [buttonIcon, setButtonIcon] = useState(false);
+
+  const PromptIcon = assistantIcon;
+
   useEffect(() => {
     setTimeout(() => {
       setButtonIcon(!buttonIcon);
     }, TOGGLE_CYCLE);
   }, [buttonIcon]);
+
   return buttonIcon ? (
     <SendIcon className={styles.icon} />
   ) : (

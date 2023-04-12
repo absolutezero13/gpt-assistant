@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+  padding-bottom: 1rem;
 }
 
 .list::-webkit-scrollbar-track {

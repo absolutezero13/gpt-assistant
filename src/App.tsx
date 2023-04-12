@@ -101,9 +101,13 @@ function App() {
         promptId: selectedPrompt.id,
         role: "user",
       } as Message;
-      await updateDoc(userRef, {
-        messageHistory: arrayUnion(userMessage),
-      });
+
+      if (!selectedPrompt.isConversationPrivate) {
+        await updateDoc(userRef, {
+          messageHistory: arrayUnion(userMessage),
+        });
+      }
+
       setPending(true);
       setInput("");
       setMessagesHistory((prev) => [...prev, userMessage as Message]);
@@ -117,7 +121,7 @@ function App() {
           .join("\n");
       }
 
-      const prePrompt = `Following prompt coming from a user named ${user?.displayName}. Answer using their first name.`;
+      const prePrompt = `Call me ${user?.displayName} in your responses.`;
 
       const prompt = `${prePrompt}\n${t(
         selectedPrompt.text
@@ -143,9 +147,13 @@ function App() {
         promptId: selectedPrompt.id,
         role: "assistant",
       } as Message;
-      await updateDoc(userRef, {
-        messageHistory: arrayUnion(assistantMessage),
-      });
+
+      if (!selectedPrompt.isConversationPrivate) {
+        await updateDoc(userRef, {
+          messageHistory: arrayUnion(assistantMessage),
+        });
+      }
+
       setMessagesHistory((prev) => [...prev, assistantMessage as Message]);
 
       if (user?.settings?.voiceAnswer) {

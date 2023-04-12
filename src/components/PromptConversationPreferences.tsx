@@ -2,11 +2,13 @@ import {
   Divider,
   FormControlLabel,
   FormGroup,
+  Grid,
   Switch,
   Typography,
 } from "@mui/material";
 import { Prompt } from "../data/prompts";
 import styles from "../style/promptOptions.module.css";
+import { useTranslation } from "react-i18next";
 
 export interface Props {
   isSmall: boolean;
@@ -19,6 +21,8 @@ const PromptConversationPreferences = ({
   selectedPrompt,
   setSelectedPrompt,
 }: Props) => {
+  const { t } = useTranslation();
+
   const handlePreferencesChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -31,10 +35,10 @@ const PromptConversationPreferences = ({
   };
 
   return (
-    <div className={isSmall ? styles.switchGroup : ""}>
-      <Divider sx={{ bgcolor: "white", mt: 2 }} />
+    <Grid className={isSmall ? styles.switchGroup : ""}>
+      <Divider sx={{ bgcolor: "white" }} />
       <Typography color="#fff" variant="h6" mt={1} ml={2} fontSize="1.1rem">
-        Conversation Preferences
+        {t("preferences")}
       </Typography>
       <FormGroup
         sx={{
@@ -58,7 +62,7 @@ const PromptConversationPreferences = ({
               name="shouldRememberConversation"
             />
           }
-          label="Remember"
+          label={t("remember")}
           labelPlacement="start"
         />
         <FormControlLabel
@@ -75,11 +79,11 @@ const PromptConversationPreferences = ({
               name="isConversationPrivate"
             />
           }
-          label="Private"
+          label={t("private")}
           labelPlacement="start"
         />
       </FormGroup>
-    </div>
+    </Grid>
   );
 };
 

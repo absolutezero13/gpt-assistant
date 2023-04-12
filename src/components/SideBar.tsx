@@ -179,7 +179,7 @@ const SideBar = ({
                 color="primary"
               >
                 <Logout />
-                <Typography ml={1}>Logout</Typography>
+                <Typography ml={1}>{t("logout")}</Typography>
               </Button>
             </>
           ) : (
