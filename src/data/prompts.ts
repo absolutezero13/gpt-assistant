@@ -16,6 +16,7 @@ export type Prompt = {
   id: number;
   shouldRememberConversation: boolean;
   adminOnly?: boolean;
+  isConversationPrivate?: boolean;
 };
 
 const prompts: Prompt[] = [
@@ -26,6 +27,7 @@ const prompts: Prompt[] = [
     icon: SettingsIcon,
     id: 0,
     shouldRememberConversation: true,
+    isConversationPrivate: false,
   },
   {
     key: "stylistLabel",
@@ -34,6 +36,7 @@ const prompts: Prompt[] = [
     icon: Man3Icon,
     id: 1,
     shouldRememberConversation: false,
+    isConversationPrivate: false,
   },
   {
     key: "doctorLabel",
@@ -42,6 +45,7 @@ const prompts: Prompt[] = [
     icon: MonitorHeartIcon,
     id: 2,
     shouldRememberConversation: true,
+    isConversationPrivate: false,
   },
   {
     key: "offensivenessLabel",
@@ -50,6 +54,7 @@ const prompts: Prompt[] = [
     icon: FlagCircleIcon,
     id: 3,
     shouldRememberConversation: false,
+    isConversationPrivate: false,
   },
   {
     key: "drunkLabel",
@@ -58,6 +63,7 @@ const prompts: Prompt[] = [
     icon: SportsBarIcon,
     id: 4,
     shouldRememberConversation: true,
+    isConversationPrivate: false,
   },
   {
     key: "mentorLabel",
@@ -66,6 +72,7 @@ const prompts: Prompt[] = [
     icon: WorkIcon,
     id: 5,
     shouldRememberConversation: true,
+    isConversationPrivate: false,
   },
   {
     key: "akpLabel",
@@ -75,6 +82,7 @@ const prompts: Prompt[] = [
     id: 6,
     shouldRememberConversation: false,
     adminOnly: true,
+    isConversationPrivate: false,
   },
   {
     key: "angryLabel",
@@ -83,6 +91,7 @@ const prompts: Prompt[] = [
     icon: Man3Icon,
     id: 7,
     shouldRememberConversation: true,
+    isConversationPrivate: false,
   },
 ];
 

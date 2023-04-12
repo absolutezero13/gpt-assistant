@@ -34,7 +34,11 @@
   "additional": "Additional Details",
   "enterMessage": "Enter your message",
   "hide": "Hide",
+  "logout": "Log out",
   "signin": "Sign in",
+  "preferences": "Preferences",
+  "private": "Private",
+  "remember": "Remember",
   "alerts": {
     "noToken": "You have no tokens.",
     "login": "Please login to continue.",

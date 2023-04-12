@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Grid, TextField } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import styles from "../style/inputArea.module.css";
 import Microphone from "./Microphone";
 import { initialPsychicalFeatures } from "../utils/contants";
@@ -10,6 +9,8 @@ import { breakPoints } from "../style/breakPoints";
 import { withStyles } from "@material-ui/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import type { Prompt } from "../data/prompts";
+import InputAreaSendButtonIcon from "./InputAreaSendButtonIcon";
 
 export const CssTextField = withStyles({
   root: {
@@ -23,13 +24,21 @@ export const CssTextField = withStyles({
 
 const STYLIST_ID = 1;
 
+interface Props {
+  sendMessage: (text: string) => Promise<void>;
+  input: string;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
+  pending: boolean | undefined;
+  selectedPrompt: Prompt;
+}
+
 const InputArea = ({
   sendMessage,
   input,
   setInput,
   pending,
   selectedPrompt,
-}: any) => {
+}: Props) => {
   const { t } = useTranslation();
   const { width } = useWindowSize();
 
@@ -107,7 +116,7 @@ const InputArea = ({
               width: "7rem",
             }}
           >
-            <SendIcon />
+            <InputAreaSendButtonIcon assistantIcon={selectedPrompt.icon} />
           </Button>
           <Button
             disabled={pending}
@@ -140,7 +149,7 @@ const InputArea = ({
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 if (e.shiftKey) setInput((prev: any) => prev + "\n");
-                sendMessage(input);
+                else sendMessage(input);
               }
             }}
             placeholder={t("enterMessage") as string}
@@ -153,7 +162,7 @@ const InputArea = ({
             onClick={() => sendMessage(input)}
             sx={{ borderRadius: 0 }}
           >
-            <SendIcon />
+            <InputAreaSendButtonIcon assistantIcon={selectedPrompt.icon} />
           </Button>
           <Microphone isSmall={width <= breakPoints.sm} setInput={setInput} />
         </Grid>

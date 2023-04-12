@@ -35,6 +35,10 @@
   "enterMessage": "Bir mesaj yaz",
   "hide": "Gizle",
   "signin": "Giriş yap",
+  "logout": "Çıkış yap",
+  "preferences": "Tercihler",
+  "private": "Özel",
+  "remember": "Sohbeti Hatırla",
   "alerts": {
     "noToken": "Tokeniniz kalmadı. İlker'den isteyin.",
     "login": "Lütfen giriş yapın.",

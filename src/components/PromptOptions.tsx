@@ -1,4 +1,4 @@
-import { Button, Tooltip, Typography } from "@mui/material";
+import { Button, Divider, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { CustomUser } from "../api/types";
@@ -6,9 +6,10 @@ import { Prompt, prompts } from "../data/prompts";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import styles from "../style/promptOptions.module.css";
+import PromptConversationPreferences from "./PromptConversationPreferences";
 
 interface PromptOptionsProps {
-  setSelectedPrompt: any;
+  setSelectedPrompt: React.Dispatch<React.SetStateAction<Prompt>>;
   selectedPrompt: Prompt;
   user: CustomUser | null;
 }
@@ -33,45 +34,53 @@ const PromptOptions = ({
   );
 
   return (
-    <div className={styles.list}>
-      {filteredPrompts.map((prompt) => {
-        const Icon = prompt.icon;
-        return (
-          <Tooltip
-            key={prompt.id.toString()}
-            title={t(prompt.explanation)}
-            placement="right"
-          >
-            <Button
-              variant={
-                selectedPrompt.id === prompt.id ? "contained" : "outlined"
-              }
+    <>
+      <Divider sx={{ bgcolor: "white", mt: 2 }} />
+      <div className={styles.list}>
+        {filteredPrompts.map((prompt) => {
+          const Icon = prompt.icon;
+          return (
+            <Tooltip
               key={prompt.id.toString()}
-              className={styles.button}
-              sx={{
-                marginTop: "1rem",
-                marginLeft: isSmall ? "1rem" : 0,
-                padding: "1rem",
-                height: isSmall ? "3rem" : "5rem",
-                minWidth: "12rem",
-              }}
-              onClick={() => setSelectedPrompt(prompt)}
+              title={t(prompt.explanation)}
+              placement="right"
             >
-              <>
-                <Icon
-                  sx={{
-                    marginRight: "1rem",
-                  }}
-                />
-                <Typography variant={isSmall ? "subtitle2" : "subtitle1"}>
-                  {t(prompt.key)}
-                </Typography>
-              </>
-            </Button>
-          </Tooltip>
-        );
-      })}
-    </div>
+              <Button
+                variant={
+                  selectedPrompt.id === prompt.id ? "contained" : "outlined"
+                }
+                key={prompt.id.toString()}
+                className={styles.button}
+                sx={{
+                  marginTop: "1rem",
+                  marginLeft: isSmall ? "1rem" : 0,
+                  padding: "1rem",
+                  height: isSmall ? "3rem" : "5rem",
+                  minWidth: "12rem",
+                }}
+                onClick={() => setSelectedPrompt(prompt)}
+              >
+                <>
+                  <Icon
+                    sx={{
+                      marginRight: "1rem",
+                    }}
+                  />
+                  <Typography variant={isSmall ? "subtitle2" : "subtitle1"}>
+                    {t(prompt.key)}
+                  </Typography>
+                </>
+              </Button>
+            </Tooltip>
+          );
+        })}
+      </div>
+      <PromptConversationPreferences
+        isSmall={isSmall}
+        selectedPrompt={selectedPrompt}
+        setSelectedPrompt={setSelectedPrompt}
+      />
+    </>
   );
 };
 
