@@ -44,11 +44,10 @@ function App() {
   const [appLoading, setAppLoading] = useState(true);
   const [userDocRef, setUserDocRef] = useState<any>(null);
 
-  const selectedPrompt = useMemo(() => {
-    console.log("selectedPromptChanges!", prompts.find((p) => p.selected)!);
-
-    return prompts.find((p) => p.selected)!;
-  }, [prompts]);
+  const selectedPrompt = useMemo(
+    () => prompts.find((p) => p.selected)!,
+    [prompts]
+  );
 
   useEffect(() => {
     const auth = getAuth();

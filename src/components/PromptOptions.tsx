@@ -2,7 +2,7 @@ import { Button, Divider, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { CustomUser } from "../api/types";
-import { Prompt } from "../data/prompts";
+import { Prompt, promptIcons } from "../data/prompts";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import styles from "../style/promptOptions.module.css";
@@ -35,7 +35,7 @@ const PromptOptions = ({ selectedPrompt, user }: PromptOptionsProps) => {
       <Divider sx={{ bgcolor: "white", mt: 2 }} />
       <div className={styles.list}>
         {filteredPrompts.map((prompt) => {
-          const Icon = prompt.icon;
+          const Icon = promptIcons[prompt.icon];
           return (
             <Tooltip
               key={prompt.id.toString()}
