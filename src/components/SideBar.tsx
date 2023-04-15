@@ -29,7 +29,6 @@ const APPBAR_HEIGHT = 80;
 
 interface SideBarProps {
   selectedPrompt: Prompt;
-  setSelectedPrompt: any;
   setLogoutAlert: any;
   user: CustomUser | null;
   setSettingsOpen: any;
@@ -37,7 +36,6 @@ interface SideBarProps {
 
 const SideBar = ({
   selectedPrompt,
-  setSelectedPrompt,
   user,
   setLogoutAlert,
   setSettingsOpen,
@@ -125,11 +123,7 @@ const SideBar = ({
             },
           }}
         >
-          <PromptOptions
-            setSelectedPrompt={setSelectedPrompt}
-            selectedPrompt={selectedPrompt}
-            user={user}
-          />
+          <PromptOptions selectedPrompt={selectedPrompt} user={user} />
         </Drawer>
       ) : (
         <Drawer
@@ -192,11 +186,7 @@ const SideBar = ({
               <Typography ml={1}>{t("signin")}</Typography>
             </Button>
           )}
-          <PromptOptions
-            setSelectedPrompt={setSelectedPrompt}
-            selectedPrompt={selectedPrompt}
-            user={user}
-          />
+          <PromptOptions selectedPrompt={selectedPrompt} user={user} />
         </Drawer>
       )}
     </StyledGrid>

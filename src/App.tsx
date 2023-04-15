@@ -5,10 +5,8 @@ import { Messages } from "./components/Messages";
 import { InputArea } from "./components/InputArea";
 import { CustomUser, Message } from "./api/types";
 import { SideBar } from "./components/SideBar";
-import { Backdrop, Button, CircularProgress, Grid } from "@mui/material";
-import styles from "./style/general.module.css";
+import { Backdrop, CircularProgress, Grid } from "@mui/material";
 import { initializeApp } from "firebase/app";
-import { Prompt, prompts } from "./data/prompts";
 import { useTranslation } from "react-i18next";
 import { getAuth } from "firebase/auth";
 import {
@@ -26,15 +24,16 @@ import { SettingsDialog } from "./components/SettingsDialog";
 import { v4 as uuid } from "uuid";
 //@ts-ignore
 import { useSpeechSynthesis } from "react-speech-kit";
+import usePromptStore from "./zustand/prompts";
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
 
 function App() {
   const { t } = useTranslation();
+  const { prompts } = usePromptStore();
   const { speak, cancel } = useSpeechSynthesis();
   const [input, setInput] = useState("");
-  const [selectedPrompt, setSelectedPrompt] = useState<Prompt>(prompts[0]);
   const [messagesHistory, setMessagesHistory] = useState<Message[]>([]);
   const [pending, setPending] = useState(false);
   const [tokens, setTokens] = useState<number | null>(null);
@@ -44,6 +43,12 @@ function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [appLoading, setAppLoading] = useState(true);
   const [userDocRef, setUserDocRef] = useState<any>(null);
+
+  const selectedPrompt = useMemo(() => {
+    console.log("selectedPromptChanges!", prompts.find((p) => p.selected)!);
+
+    return prompts.find((p) => p.selected)!;
+  }, [prompts]);
 
   useEffect(() => {
     const auth = getAuth();
@@ -184,7 +189,6 @@ function App() {
       <SideBar
         user={user}
         selectedPrompt={selectedPrompt}
-        setSelectedPrompt={setSelectedPrompt}
         setLogoutAlert={setLogoutAlert}
         setSettingsOpen={setSettingsOpen}
       />
@@ -232,11 +236,6 @@ function App() {
         setAppLoading={setAppLoading}
         userDocRef={userDocRef}
       />
-      {tokens && (
-        <Grid className={styles.tokens}>
-          <p>TOKENS: {tokens} </p>
-        </Grid>
-      )}
     </div>
   );
 }

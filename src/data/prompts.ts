@@ -17,9 +17,10 @@ export type Prompt = {
   shouldRememberConversation: boolean;
   adminOnly?: boolean;
   isConversationPrivate?: boolean;
+  selected: boolean;
 };
 
-const prompts: Prompt[] = [
+const initialPrompts: Prompt[] = [
   {
     key: "defaultLabel",
     text: "defaultPrompt",
@@ -28,6 +29,7 @@ const prompts: Prompt[] = [
     id: 0,
     shouldRememberConversation: true,
     isConversationPrivate: false,
+    selected: true,
   },
   {
     key: "stylistLabel",
@@ -37,6 +39,7 @@ const prompts: Prompt[] = [
     id: 1,
     shouldRememberConversation: false,
     isConversationPrivate: false,
+    selected: false,
   },
   {
     key: "doctorLabel",
@@ -46,6 +49,7 @@ const prompts: Prompt[] = [
     id: 2,
     shouldRememberConversation: true,
     isConversationPrivate: false,
+    selected: false,
   },
   {
     key: "offensivenessLabel",
@@ -55,6 +59,7 @@ const prompts: Prompt[] = [
     id: 3,
     shouldRememberConversation: false,
     isConversationPrivate: false,
+    selected: false,
   },
   {
     key: "drunkLabel",
@@ -64,6 +69,7 @@ const prompts: Prompt[] = [
     id: 4,
     shouldRememberConversation: true,
     isConversationPrivate: false,
+    selected: false,
   },
   {
     key: "mentorLabel",
@@ -73,6 +79,7 @@ const prompts: Prompt[] = [
     id: 5,
     shouldRememberConversation: true,
     isConversationPrivate: false,
+    selected: false,
   },
   {
     key: "akpLabel",
@@ -83,6 +90,7 @@ const prompts: Prompt[] = [
     shouldRememberConversation: false,
     adminOnly: true,
     isConversationPrivate: false,
+    selected: false,
   },
   {
     key: "angryLabel",
@@ -92,7 +100,8 @@ const prompts: Prompt[] = [
     id: 7,
     shouldRememberConversation: true,
     isConversationPrivate: false,
+    selected: false,
   },
 ];
 
-export { prompts };
+export { initialPrompts };

@@ -42,8 +42,8 @@ const LanguageSelection = () => {
         zIndex: 999,
         marginTop: "0.5rem",
         right: "2rem",
-        top: "2rem",
-        height: "2rem",
+        top: "0.7rem",
+        height: "2.3rem",
         width: "6rem",
         color: "#fff",
         ".MuiOutlinedInput-notchedOutline": {

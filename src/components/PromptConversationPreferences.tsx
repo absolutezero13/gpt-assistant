@@ -9,29 +9,34 @@ import {
 import { Prompt } from "../data/prompts";
 import styles from "../style/promptOptions.module.css";
 import { useTranslation } from "react-i18next";
+import usePromptStore from "../zustand/prompts";
 
 export interface Props {
   isSmall: boolean;
   selectedPrompt: Prompt;
-  setSelectedPrompt: React.Dispatch<React.SetStateAction<Prompt>>;
 }
 
-const PromptConversationPreferences = ({
-  isSmall,
-  selectedPrompt,
-  setSelectedPrompt,
-}: Props) => {
+const PromptConversationPreferences = ({ isSmall, selectedPrompt }: Props) => {
+  const { prompts, setPrompts } = usePromptStore();
   const { t } = useTranslation();
 
   const handlePreferencesChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setSelectedPrompt((prev) => {
-      return {
-        ...prev,
-        [event.target.name]: event.target.checked,
-      };
+    const { name, checked } = event.target;
+    const updatedPrompt = {
+      ...selectedPrompt,
+      [name]: checked,
+    };
+
+    console.log("updatedPrompt", updatedPrompt);
+    const updatedPrompts = prompts.map((p) => {
+      if (p.id === updatedPrompt.id) {
+        return updatedPrompt;
+      }
+      return p;
     });
+    setPrompts(updatedPrompts);
   };
 
   return (

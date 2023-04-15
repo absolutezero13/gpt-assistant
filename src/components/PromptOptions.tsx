@@ -2,23 +2,20 @@ import { Button, Divider, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { CustomUser } from "../api/types";
-import { Prompt, prompts } from "../data/prompts";
+import { Prompt } from "../data/prompts";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { breakPoints } from "../style/breakPoints";
 import styles from "../style/promptOptions.module.css";
 import PromptConversationPreferences from "./PromptConversationPreferences";
+import usePromptStore from "../zustand/prompts";
 
 interface PromptOptionsProps {
-  setSelectedPrompt: React.Dispatch<React.SetStateAction<Prompt>>;
   selectedPrompt: Prompt;
   user: CustomUser | null;
 }
 
-const PromptOptions = ({
-  setSelectedPrompt,
-  selectedPrompt,
-  user,
-}: PromptOptionsProps) => {
+const PromptOptions = ({ selectedPrompt, user }: PromptOptionsProps) => {
+  const { prompts, setPrompts } = usePromptStore();
   const { t } = useTranslation();
   const { width } = useWindowSize();
 
@@ -58,7 +55,27 @@ const PromptOptions = ({
                   height: isSmall ? "3rem" : "5rem",
                   minWidth: "12rem",
                 }}
-                onClick={() => setSelectedPrompt(prompt)}
+                onClick={() => {
+                  const clickedPrompt = prompts.find(
+                    (p) => p.id === prompt.id
+                  )!;
+                  console.log("clickedPrompt", clickedPrompt);
+                  const updatedClickedPrompt = {
+                    ...clickedPrompt,
+                    selected: true,
+                  };
+                  const updatedPrompts = prompts.map((p) => {
+                    if (p.id === updatedClickedPrompt.id) {
+                      console.log("updatedClickedPrompt", updatedClickedPrompt);
+                      return updatedClickedPrompt;
+                    }
+                    return {
+                      ...p,
+                      selected: false,
+                    };
+                  });
+                  setPrompts(updatedPrompts);
+                }}
               >
                 <>
                   <Icon
@@ -78,7 +95,6 @@ const PromptOptions = ({
       <PromptConversationPreferences
         isSmall={isSmall}
         selectedPrompt={selectedPrompt}
-        setSelectedPrompt={setSelectedPrompt}
       />
     </>
   );
