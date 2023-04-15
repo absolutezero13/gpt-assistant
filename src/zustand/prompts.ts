@@ -12,7 +12,7 @@ const usePromptStore = create(
       name: "prompts",
     }
   )
-);
+) as any;
 
 interface PromptStore {
   prompts: Prompt[];
