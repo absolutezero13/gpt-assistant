@@ -1,8 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Prompt, initialPrompts } from "../data/prompts";
-// TODO : TYPE THIS (I'm not sure how to type this)
-const usePromptStore = create(
+
+const usePromptStore = create<PromptStore>(
+  //@ts-ignore
   persist(
     (set) => ({
       prompts: initialPrompts,
@@ -12,7 +13,7 @@ const usePromptStore = create(
       name: "prompts",
     }
   )
-) as any;
+);
 
 interface PromptStore {
   prompts: Prompt[];

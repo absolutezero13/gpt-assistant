@@ -45,7 +45,7 @@ function App() {
   const [userDocRef, setUserDocRef] = useState<any>(null);
 
   const selectedPrompt = useMemo(
-    () => prompts.find((p: any) => p.selected)!,
+    () => prompts.find((p) => p.selected)!,
     [prompts]
   );
 
