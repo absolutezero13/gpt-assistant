@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Prompt, initialPrompts } from "../data/prompts";
-
-const usePromptStore = create<PromptStore>(
+// TODO : TYPE THIS (I'm not sure how to type this)
+const usePromptStore = create(
   persist(
     (set) => ({
       prompts: initialPrompts,
