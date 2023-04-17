@@ -39,6 +39,7 @@ const LanguageSelection = () => {
       value={i18n.language}
       sx={{
         position: "absolute",
+        backgroundColor: "#191825",
         zIndex: 999,
         marginTop: "0.5rem",
         right: "2rem",

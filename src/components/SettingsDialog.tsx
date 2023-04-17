@@ -71,9 +71,9 @@ const SettingsDialog = ({
   useEffect(() => {
     if (user) {
       setUserInfo({
-        apiKey: user.apiKey,
-        craziness: user.settings?.craziness,
-        gptModel: user.settings?.model,
+        apiKey: user.apiKey || "",
+        craziness: user.settings?.craziness || 0,
+        gptModel: user.settings?.model || gptModels[0].value,
         voiceAnswer: user.settings?.voiceAnswer || false,
         voiceChoice: user.settings?.voiceChoice || voiceOptions[0]?.name,
       });

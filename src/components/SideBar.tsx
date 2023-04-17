@@ -16,7 +16,7 @@ import { breakPoints } from "../style/breakPoints";
 import styled from "@emotion/styled";
 import { Google, Logout, Settings } from "@mui/icons-material";
 import { signInWithgoogle, signOut } from "../providers/googleAuth";
-import { Prompt } from "../data/prompts";
+import { Prompt, promptIcons } from "../data/prompts";
 import { CustomUser } from "../api/types";
 import { useTranslation } from "react-i18next";
 
@@ -46,6 +46,7 @@ const SideBar = ({
 
   const handleDrawerToggle = () => setShowDrawer(!showDrawer);
   const isSmall = width <= breakPoints.sm;
+  const Icon = promptIcons[selectedPrompt.icon];
 
   return (
     <StyledGrid>
@@ -68,39 +69,25 @@ const SideBar = ({
           >
             <MenuIcon />
           </IconButton>
-          {isSmall &&
-            (user ? (
-              <Grid mt={1} display="flex" alignItems="center">
-                <img
-                  src={user.photoURL as string}
-                  alt="user"
-                  style={{
-                    width: "1.5rem",
-                    marginRight: "0.5rem",
-                    borderRadius: 99,
-                  }}
-                />
-                <Button onClick={signOut} variant="contained">
-                  <Logout />
-                </Button>
-                <Button
-                  sx={{ ml: 1 }}
-                  onClick={() => setSettingsOpen(true)}
-                  variant="contained"
-                  color="primary"
-                >
-                  <Settings />
-                </Button>
-              </Grid>
-            ) : (
-              <Button
-                onClick={signInWithgoogle}
-                variant="contained"
-                color="primary"
-              >
-                <Google />
-              </Button>
-            ))}
+          {isSmall && (
+            <Grid
+              display="flex"
+              mt={2}
+              color="#FFA3FD"
+              py={1.5}
+              px={2}
+              sx={{ border: 1, borderColor: "#FFA3FD", borderRadius: 1 }}
+            >
+              <Icon
+                sx={{
+                  marginRight: "1rem",
+                }}
+              />
+              <Typography variant={isSmall ? "subtitle2" : "subtitle1"}>
+                {t(selectedPrompt.key)}
+              </Typography>
+            </Grid>
+          )}
           {!isSmall && (
             <Grid>
               <Typography color="#fff" variant="h6" mt={1} ml={isSmall ? 0 : 3}>
@@ -119,10 +106,48 @@ const SideBar = ({
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: DRAWER_HEIGHT,
-              mt: `${APPBAR_HEIGHT}px`,
             },
           }}
         >
+          <Grid display="flex" px={"16px"} justifyContent={"space-between"}>
+            <IconButton color="primary" onClick={handleDrawerToggle} sx={{}}>
+              <MenuIcon />
+            </IconButton>
+            <Grid height={APPBAR_HEIGHT} display="flex" alignItems="center">
+              {user ? (
+                <>
+                  <img
+                    src={user.photoURL as string}
+                    alt="user"
+                    style={{
+                      width: "1.5rem",
+                      marginRight: "0.5rem",
+                      borderRadius: 99,
+                    }}
+                  />
+                  <Button onClick={signOut} variant="contained">
+                    <Logout />
+                  </Button>
+                  <Button
+                    sx={{ ml: 1 }}
+                    onClick={() => setSettingsOpen(true)}
+                    variant="contained"
+                    color="primary"
+                  >
+                    <Settings />
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  onClick={signInWithgoogle}
+                  variant="contained"
+                  color="primary"
+                >
+                  <Google />
+                </Button>
+              )}
+            </Grid>
+          </Grid>
           <PromptOptions selectedPrompt={selectedPrompt} user={user} />
         </Drawer>
       ) : (
