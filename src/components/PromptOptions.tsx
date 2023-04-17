@@ -32,7 +32,7 @@ const PromptOptions = ({ selectedPrompt, user }: PromptOptionsProps) => {
 
   return (
     <>
-      <Divider sx={{ bgcolor: "white", mt: 2 }} />
+      <Divider sx={{ bgcolor: "white", mt: isSmall ? 0 : 2 }} />
       <div className={styles.list}>
         {filteredPrompts.map((prompt) => {
           const Icon = promptIcons[prompt.icon];
