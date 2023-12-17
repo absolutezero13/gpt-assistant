@@ -174,7 +174,7 @@ const SettingsDialog = ({
           min={0}
           max={2}
           color="primary"
-          value={userInfo.craziness || 1}
+          value={userInfo.craziness ?? 1}
           onChange={(_, value) =>
             setUserInfo({ ...userInfo, craziness: value })
           }

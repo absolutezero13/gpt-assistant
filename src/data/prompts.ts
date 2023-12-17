@@ -1,12 +1,10 @@
-import { Message } from "../api/types";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
-import { SvgIconTypeMap } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 import FlagCircleIcon from "@mui/icons-material/FlagCircle";
 import SportsBarIcon from "@mui/icons-material/SportsBar";
 import WorkIcon from "@mui/icons-material/Work";
 import Man3Icon from "@mui/icons-material/Man3";
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 export type Prompt = {
   key: string;
@@ -21,15 +19,26 @@ export type Prompt = {
 };
 
 export const promptIcons = {
-  SettingsIcon: SettingsIcon,
-  MonitorHeartIcon: MonitorHeartIcon,
-  FlagCircleIcon: FlagCircleIcon,
-  SportsBarIcon: SportsBarIcon,
-  WorkIcon: WorkIcon,
-  Man3Icon: Man3Icon,
+  SettingsIcon,
+  MonitorHeartIcon,
+  FlagCircleIcon,
+  SportsBarIcon,
+  WorkIcon,
+  Man3Icon,
+  RestaurantIcon,
 };
 
 const initialPrompts: Prompt[] = [
+  {
+    key: "mealLoggerLabel",
+    text: "mealLoggerPrompt",
+    explanation: "mealLoggerExplanation",
+    icon: "RestaurantIcon",
+    id: 8,
+    shouldRememberConversation: true,
+    isConversationPrivate: false,
+    selected: false,
+  },
   {
     key: "defaultLabel",
     text: "defaultPrompt",
@@ -111,6 +120,7 @@ const initialPrompts: Prompt[] = [
     isConversationPrivate: false,
     selected: false,
   },
+
 ];
 
 export { initialPrompts };
