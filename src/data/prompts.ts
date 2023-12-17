@@ -13,9 +13,10 @@ export type Prompt = {
     icon: keyof typeof promptIcons;
     id: number;
     shouldRememberConversation: boolean;
-    adminOnly?: boolean;
-    isConversationPrivate?: boolean;
     selected: boolean;
+    adminOnly?: boolean;
+    syntaxHighlighting?: string;
+    isConversationPrivate?: boolean;
 };
 
 export const promptIcons = {
@@ -38,6 +39,7 @@ const initialPrompts: Prompt[] = [
         shouldRememberConversation: true,
         isConversationPrivate: false,
         selected: false,
+        syntaxHighlighting: 'json',
     },
     {
         key: 'defaultLabel',

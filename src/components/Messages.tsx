@@ -1,15 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { Alert, Collapse, Grid, Typography } from '@mui/material';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
+import { Alert, Collapse, Grid, Snackbar, Typography } from '@mui/material';
 import { theme } from '../style/theme';
 import styles from '../style/messages.module.css';
-import { CustomUser, Message } from '../api/types';
+import { CustomUser, IMessage } from '../api/types';
 import Loader from './Loader';
 import LanguageSelection from './LanguageSelection';
 import { Close } from '@mui/icons-material';
 import { useWindowSize } from '../hooks/useWindowSize';
 import { Prompt } from '../data/prompts';
+import Message from './Message';
 
 const dynamicStyles = {
     user: {
@@ -25,7 +26,7 @@ const dynamicStyles = {
 };
 
 interface MessagesProps {
-    messages: Message[];
+    messages: IMessage[];
     pending: boolean;
     selectedPrompt: Prompt;
     errorAlert: string | null;
@@ -33,9 +34,11 @@ interface MessagesProps {
     user: CustomUser | null;
 }
 
-const Messages = ({ messages, pending, errorAlert, setErrorAlert, user }: MessagesProps) => {
+const Messages = ({ messages, pending, errorAlert, setErrorAlert, user, selectedPrompt }: MessagesProps) => {
     const { width } = useWindowSize();
     const ref = useRef<HTMLDivElement>(null);
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
@@ -52,49 +55,15 @@ const Messages = ({ messages, pending, errorAlert, setErrorAlert, user }: Messag
         <Grid ref={ref} mt={isSmall ? 10 : 0} mb={0} className={styles.container}>
             <LanguageSelection />
             <Grid position="relative">
-                {messages.map((item: Message) => {
-                    return (
-                        <div
-                            key={item?.id || item.content + item.role}
-                            className={styles.messageItem}
-                            style={{
-                                alignItems: dynamicStyles[item.role].alignItems,
-                            }}>
-                            <div
-                                className={styles.message}
-                                style={{
-                                    backgroundColor: dynamicStyles[item.role].backgroundColor,
-                                }}>
-                                <Typography
-                                    fontSize={isSmall ? '0.9rem' : '1.1rem'}
-                                    color={dynamicStyles[item.role].color}>
-                                    <span className={styles.icon}>
-                                        {item.role === 'assistant' ? (
-                                            <PsychologyAltIcon />
-                                        ) : (
-                                            <img
-                                                style={{
-                                                    width: '1.5rem',
-                                                    height: '1.5rem',
-                                                    borderRadius: '50%',
-                                                }}
-                                                src={user?.photoURL}
-                                            />
-                                        )}{' '}
-                                    </span>
-                                    {item.content.split('\n').map((item, key) => {
-                                        return (
-                                            <span key={key}>
-                                                {item}
-                                                <br />
-                                            </span>
-                                        );
-                                    })}
-                                </Typography>
-                            </div>
-                        </div>
-                    );
-                })}
+                {messages.map((item: IMessage) => (
+                    <Message
+                        item={item}
+                        selectedPrompt={selectedPrompt}
+                        isSmall={isSmall}
+                        user={user}
+                        openSnackbar={() => setSnackbarOpen(true)}
+                    />
+                ))}
             </Grid>
             <Collapse
                 in={errorAlert !== null}
@@ -128,6 +97,13 @@ const Messages = ({ messages, pending, errorAlert, setErrorAlert, user }: Messag
                     <Loader />
                 </Grid>
             )}
+            <Snackbar
+                color="secondary"
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={() => setSnackbarOpen(false)}
+                message="Copied to clipboard"
+            />
         </Grid>
     );
 };

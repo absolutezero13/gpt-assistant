@@ -49,6 +49,7 @@
   border-radius: 10px;
   margin-top: 2rem;
   width: min(calc(50% + 310px), 95%);
+  position: relative;
 }
 
 @media screen and (max-width: 768px) {
