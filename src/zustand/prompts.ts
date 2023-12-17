@@ -1,23 +1,23 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { Prompt, initialPrompts } from "../data/prompts";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { Prompt, initialPrompts } from '../data/prompts';
 
 const usePromptStore = create<PromptStore>(
-  //@ts-ignore
-  persist(
-    (set) => ({
-      prompts: initialPrompts,
-      setPrompts: (prompts: Prompt[]) => set({ prompts }),
-    }),
-    {
-      name: "prompts",
-    }
-  )
+    //@ts-ignore
+    persist(
+        (set) => ({
+            prompts: initialPrompts,
+            setPrompts: (prompts: Prompt[]) => set({ prompts }),
+        }),
+        {
+            name: 'prompts',
+        },
+    ),
 );
 
 interface PromptStore {
-  prompts: Prompt[];
-  setPrompts: (prompts: Prompt[]) => void;
+    prompts: Prompt[];
+    setPrompts: (prompts: Prompt[]) => void;
 }
 
 export default usePromptStore;
