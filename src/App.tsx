@@ -52,6 +52,7 @@ function App() {
   useEffect(() => {
     const auth = getAuth();
     getTokens().then((res) => {
+      console.log(res);
       setTokens(res.tokenLimit - res.tokensUsed);
       setAppLoading(false);
     });
@@ -87,7 +88,7 @@ function App() {
           const userRef = doc(db, "users", userCredential.user.uid);
           const userData = {
             email: userCredential.user.email,
-            displayName: userCredential.user.displayName,
+            displayName: "Anonymous Stranger",
             photoURL: userCredential.user.photoURL,
             uid: userCredential.user.uid,
             messageHistory: [],
@@ -160,6 +161,7 @@ function App() {
       }
 
       const tokenResp = await getTokens();
+      console.log(tokenResp);
       setTokens(tokenResp.tokenLimit - tokenResp.tokensUsed);
 
       const assistantMessage = {
