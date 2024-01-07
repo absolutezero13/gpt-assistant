@@ -114,10 +114,10 @@ const SideBar = ({
               <MenuIcon />
             </IconButton>
             <Grid height={APPBAR_HEIGHT} display="flex" alignItems="center">
-              {user ? (
+              {user?.type === "google" ? (
                 <>
                   <img
-                    src={user.photoURL as string}
+                    src={user?.photoURL as string}
                     alt="user"
                     style={{
                       width: "1.5rem",
@@ -144,6 +144,7 @@ const SideBar = ({
                   color="primary"
                 >
                   <Google />
+                  <Typography ml={1}>{t("signin")}</Typography>
                 </Button>
               )}
             </Grid>
@@ -162,7 +163,7 @@ const SideBar = ({
             },
           }}
         >
-          {user ? (
+          {user?.type === "google" ? (
             <>
               <Grid
                 container
@@ -171,7 +172,7 @@ const SideBar = ({
                 justifyContent="center"
               >
                 <img
-                  src={user.photoURL as string}
+                  src={user?.photoURL as string}
                   alt="user"
                   style={{
                     width: "1.5rem",
@@ -180,7 +181,7 @@ const SideBar = ({
                   }}
                 />
                 <Typography color="#fff" variant="h6">
-                  {user.displayName}
+                  {user?.displayName}
                 </Typography>
               </Grid>
               <Button

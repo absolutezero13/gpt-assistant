@@ -4,6 +4,8 @@ import {
   signInWithPopup,
   setPersistence,
   browserLocalPersistence,
+  signInAnonymously,
+  UserCredential,
 } from "firebase/auth";
 
 export const signInWithgoogle = async () => {
